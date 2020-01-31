@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Rick&amp;Morty</string>
+
+
+    <string name="main_activity_card_characters">Characters</string>
+    <string name="main_activity_card_locations">Locations</string>
+    <string name="main_activity_card_episodes">Episodes</string>
+
+
+</resources>
