@@ -6,5 +6,9 @@
     <string name="main_activity_card_locations">Locations</string>
     <string name="main_activity_card_episodes">Episodes</string>
 
+    <string name="main_activity_title_description">Logo of Rick and Morty animated series</string>
+    <string name="main_activity_character_description">Representation of a character of the series</string>
+    <string name="main_activity_location_description">Representation of a location of the series</string>
+    <string name="main_activity_episode_description">Representation of an episode of the series</string>
 
 </resources>
