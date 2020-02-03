@@ -8,6 +8,18 @@
     android:background="@color/darkGreen"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/img_rick_morty"
+        android:layout_marginStart="@dimen/margin_padding_small"
+        android:layout_marginEnd="@dimen/margin_padding_small"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvCharacter"
         android:layout_width="match_parent"
@@ -24,14 +36,14 @@
         app:cardCornerRadius="@dimen/material_component_cards_great_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivCharacters"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -80,12 +92,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivLocations"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="@dimen/margin_padding_small"
                 android:src="@drawable/img_character"
+                android:background="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivEpisodes"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
