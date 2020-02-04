@@ -21,7 +21,10 @@ class MainAdapter(private val items: List<AdapterItem>) :
             ) { itemView ->
                 TitleViewHolder(itemView)
             }
-            registerViewHolderFactory(CardViewHolder::class, R.layout.item_main_card) { itemView ->
+            registerViewHolderFactory(
+                CardViewHolder::class,
+                R.layout.item_main_card
+            ) { itemView ->
                 CardViewHolder(itemView)
             }
         }
@@ -54,7 +57,7 @@ class CardAdapterItem(
         viewHolder.ivCategory.setImageDrawable(icon)
         viewHolder.ivCategory.contentDescription = contentDescription
         viewHolder.tvCategory.text = label
-        viewHolder.itemView.setOnClickListener { onClick() }
+        viewHolder.cvCategory.setOnClickListener { onClick() }
     }
 }
 
