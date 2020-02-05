@@ -1,75 +1,89 @@
 package com.fehlves.rickmorty.main
 
-import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.common.AdapterBase
-import com.fehlves.rickmorty.common.AdapterItem
-import com.fehlves.rickmorty.common.ViewHolderProvider
+import com.fehlves.rickmorty.common.BaseView
+import com.fehlves.rickmorty.common.BaseViewHolder
+import com.fehlves.rickmorty.main.model.CategoryView
+import com.fehlves.rickmorty.main.model.MainView
+import com.fehlves.rickmorty.main.model.TitleView
+import kotlinx.android.synthetic.main.item_main_card.view.*
+import kotlinx.android.synthetic.main.item_main_title.view.*
 
-class MainAdapter(private val items: List<AdapterItem>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainAdapter : ListAdapter<MainView, BaseViewHolder>(DIFF_CALLBACK) {
 
-    private val viewHolderProvider = ViewHolderProvider()
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 
-    init {
-        viewHolderProvider.apply {
-            registerViewHolderFactory(
-                TitleViewHolder::class,
-                R.layout.item_main_title
-            ) { itemView ->
-                TitleViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        return when (viewType) {
+            TITLE_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_main_title, parent, false)
+                TitleViewHolder(view)
             }
-            registerViewHolderFactory(
-                CardViewHolder::class,
-                R.layout.item_main_card
-            ) { itemView ->
-                CardViewHolder(itemView)
+            CATEGORY_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_main_card, parent, false)
+                CardViewHolder(view)
             }
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return items[position].viewType
+        return when (getItem(position)) {
+            is TitleView -> TITLE_TYPE
+            is CategoryView -> CATEGORY_TYPE
+            else -> throw IllegalArgumentException("Invalid type of data at position $position")
+        }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    class TitleViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(item: BaseView) {
+            val titleView = item as TitleView
+            with (itemView) {
+                ivLogo.setImageDrawable(context.getDrawable(titleView.icon))
+                ivLogo.contentDescription = context.getString(titleView.imageDescription)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return viewHolderProvider.provideViewHolder(viewGroup, viewType)
+    class CardViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(item: BaseView) {
+            val categoryView = item as CategoryView
+            with (itemView) {
+                ivCategory.setImageDrawable(context.getDrawable(categoryView.icon))
+                ivCategory.contentDescription = context.getString(categoryView.imageDescription)
+                tvCategory.text = context.getString(categoryView.text)
+                cvCategory.setOnClickListener { categoryView.onClick() }
+            }
+        }
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        items[position].bindViewHolder(viewHolder)
-    }
-}
+    companion object {
+        const val TITLE_TYPE = 0
+        const val CATEGORY_TYPE = 1
 
-class CardAdapterItem(
-    private val icon: Drawable?,
-    private val label: String,
-    private val contentDescription: String,
-    private val onClick: () -> Unit
-) : AdapterBase<CardViewHolder>(CardViewHolder::class) {
-    override fun bindViewHolder(viewHolder: CardViewHolder) {
-        viewHolder.ivCategory.setImageDrawable(icon)
-        viewHolder.ivCategory.contentDescription = contentDescription
-        viewHolder.tvCategory.text = label
-        viewHolder.cvCategory.setOnClickListener { onClick() }
-    }
-}
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<MainView> = object : DiffUtil.ItemCallback<MainView>() {
+            override fun areItemsTheSame(oldUser: MainView, newUser: MainView): Boolean {
+                return if (oldUser is TitleView && newUser is TitleView) {
+                    oldUser.icon == newUser.icon
+                } else if (oldUser is CategoryView && newUser is CategoryView) {
+                    oldUser.icon == newUser.icon
+                } else {
+                    false
+                }
+            }
 
-class TitleAdapterItem(
-    private val icon: Drawable?,
-    private val contentDescription: String,
-    private val onClick: () -> Unit
-) :
-    AdapterBase<TitleViewHolder>(TitleViewHolder::class) {
-    override fun bindViewHolder(viewHolder: TitleViewHolder) {
-        viewHolder.ivLogo.setImageDrawable(icon)
-        viewHolder.ivLogo.contentDescription = contentDescription
-        viewHolder.itemView.setOnClickListener { onClick() }
+            override fun areContentsTheSame(oldUser: MainView, newUser: MainView): Boolean {
+                return oldUser.equals(newUser)
+            }
+        }
     }
 }
