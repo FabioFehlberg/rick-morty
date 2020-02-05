@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
         }
 
         val categoryLocation = CategoryView(
-            R.drawable.img_character,
+            R.drawable.img_location,
             R.string.main_activity_card_locations,
             R.string.main_activity_location_description
         ) {
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
         }
 
         val categoryEpisode = CategoryView(
-            R.drawable.img_character,
+            R.drawable.img_episode,
             R.string.main_activity_card_episodes,
             R.string.main_activity_episode_description
         ) {
