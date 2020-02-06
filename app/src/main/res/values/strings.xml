@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Rick&amp;Morty</string>
 
+    <string name="arrow_next_description">Arrow indicating that item has more information</string>
 
     <string name="main_activity_card_characters">Characters</string>
     <string name="main_activity_card_locations">Locations</string>
