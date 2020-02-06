@@ -9,12 +9,11 @@ import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.main.model.CategoryView
-import com.fehlves.rickmorty.main.model.MainView
 import com.fehlves.rickmorty.main.model.TitleView
 import kotlinx.android.synthetic.main.item_main_card.view.*
 import kotlinx.android.synthetic.main.item_main_title.view.*
 
-class MainAdapter : ListAdapter<MainView, BaseViewHolder>(DIFF_CALLBACK) {
+class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -70,8 +69,8 @@ class MainAdapter : ListAdapter<MainView, BaseViewHolder>(DIFF_CALLBACK) {
         const val TITLE_TYPE = 0
         const val CATEGORY_TYPE = 1
 
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<MainView> = object : DiffUtil.ItemCallback<MainView>() {
-            override fun areItemsTheSame(oldUser: MainView, newUser: MainView): Boolean {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<BaseView> = object : DiffUtil.ItemCallback<BaseView>() {
+            override fun areItemsTheSame(oldUser: BaseView, newUser: BaseView): Boolean {
                 return if (oldUser is TitleView && newUser is TitleView) {
                     oldUser.icon == newUser.icon
                 } else if (oldUser is CategoryView && newUser is CategoryView) {
@@ -81,7 +80,7 @@ class MainAdapter : ListAdapter<MainView, BaseViewHolder>(DIFF_CALLBACK) {
                 }
             }
 
-            override fun areContentsTheSame(oldUser: MainView, newUser: MainView): Boolean {
+            override fun areContentsTheSame(oldUser: BaseView, newUser: BaseView): Boolean {
                 return oldUser.equals(newUser)
             }
         }
