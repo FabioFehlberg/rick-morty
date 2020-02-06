@@ -70,18 +70,18 @@ class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         const val CATEGORY_TYPE = 1
 
         val DIFF_CALLBACK: DiffUtil.ItemCallback<BaseView> = object : DiffUtil.ItemCallback<BaseView>() {
-            override fun areItemsTheSame(oldUser: BaseView, newUser: BaseView): Boolean {
-                return if (oldUser is TitleView && newUser is TitleView) {
-                    oldUser.icon == newUser.icon
-                } else if (oldUser is CategoryView && newUser is CategoryView) {
-                    oldUser.icon == newUser.icon
+            override fun areItemsTheSame(oldItem: BaseView, newItem: BaseView): Boolean {
+                return if (oldItem is TitleView && newItem is TitleView) {
+                    oldItem.icon == newItem.icon
+                } else if (oldItem is CategoryView && newItem is CategoryView) {
+                    oldItem.icon == newItem.icon
                 } else {
                     false
                 }
             }
 
-            override fun areContentsTheSame(oldUser: BaseView, newUser: BaseView): Boolean {
-                return oldUser.equals(newUser)
+            override fun areContentsTheSame(oldItem: BaseView, newItem: BaseView): Boolean {
+                return oldItem.equals(newItem)
             }
         }
     }
