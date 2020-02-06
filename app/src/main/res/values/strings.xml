@@ -11,4 +11,8 @@
     <string name="main_activity_location_description">Representation of a location of the series</string>
     <string name="main_activity_episode_description">Representation of an episode of the series</string>
 
+    <string name="catalogue_character_search_hint">Search character</string>
+    <string name="catalogue_location_search_hint">Search location</string>
+    <string name="catalogue_episode_search_hint">Search episode</string>
+
 </resources>
