@@ -23,7 +23,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/tvEpisode"
+            android:id="@+id/tvEpisodeName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_large"
@@ -35,13 +35,13 @@
             tools:text="Pilot" />
 
         <TextView
-            android:id="@+id/tvSpecies"
+            android:id="@+id/tvEpisode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorYellow"
             android:textSize="@dimen/material_typography_body1"
-            app:layout_constraintStart_toStartOf="@+id/tvEpisode"
-            app:layout_constraintTop_toBottomOf="@id/tvEpisode"
+            app:layout_constraintStart_toStartOf="@+id/tvEpisodeName"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisodeName"
             tools:text="S01E01" />
 
         <TextView
@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorYellow"
             android:textSize="@dimen/material_typography_body1"
-            app:layout_constraintStart_toStartOf="@+id/tvEpisode"
-            app:layout_constraintTop_toBottomOf="@id/tvSpecies"
+            app:layout_constraintStart_toStartOf="@+id/tvEpisodeName"
+            app:layout_constraintTop_toBottomOf="@id/tvEpisode"
             tools:text="Air date: December 2, 2013" />
 
         <ImageView
