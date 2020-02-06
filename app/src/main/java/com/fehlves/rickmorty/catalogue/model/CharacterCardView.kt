@@ -7,5 +7,6 @@ data class CharacterCardView(
     val specie: String,
     val gender: String,
     val status: String,
+    val url: String,
     val onClick: (String) -> Unit
 ) : BaseView()
