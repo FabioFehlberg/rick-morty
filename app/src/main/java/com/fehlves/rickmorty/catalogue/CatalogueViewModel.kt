@@ -6,16 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.common.BaseResult
+import com.fehlves.rickmorty.common.BaseViewModel
 import com.fehlves.rickmorty.data.CatalogueDataStore
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : ViewModel(),
-    CoroutineScope {
-
-    private val job = Job()
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
+class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : BaseViewModel() {
 
     private val onShowLoading = MutableLiveData<Boolean>()
     private val onCharacterResult = MutableLiveData<List<CharacterCardView>>()
@@ -47,11 +43,5 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                 )
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        job.cancel()
     }
 }
