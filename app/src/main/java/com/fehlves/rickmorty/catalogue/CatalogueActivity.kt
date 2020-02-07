@@ -11,6 +11,7 @@ import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_catalogue.*
+import kotlin.random.Random
 
 class CatalogueActivity : BaseActivity() {
 
@@ -23,7 +24,9 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun setupViews() {
-        val searchView = SearchView {
+        val searchView = SearchView(
+            type = Random.nextInt(1,3)
+        ) {
             //TODO call api
         }
 

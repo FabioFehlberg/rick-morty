@@ -70,6 +70,13 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                             false
                         }
                     }
+
+                    tiSearch.hint = when (item.type) {
+                        CHARACTER_TYPE -> context.getString(R.string.catalogue_character_search_hint)
+                        LOCATION_TYPE -> context.getString(R.string.catalogue_location_search_hint)
+                        EPISODE_TYPE -> context.getString(R.string.catalogue_episode_search_hint)
+                        else -> throw IllegalArgumentException("Invalid view type")
+                    }
                 }
             }
         }
