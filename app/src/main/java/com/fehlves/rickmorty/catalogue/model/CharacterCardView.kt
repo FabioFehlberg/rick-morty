@@ -7,5 +7,6 @@ data class CharacterCardView(
     val gender: String,
     val status: String,
     val image: String,
-    val onClick: () -> Unit
+    val url: String,
+    var onClick: (() -> Unit)? = null
 ) : CatalogueView()
