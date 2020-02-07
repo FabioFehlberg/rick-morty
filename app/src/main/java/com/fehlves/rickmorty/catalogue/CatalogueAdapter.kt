@@ -14,6 +14,7 @@ import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
+import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
 import kotlinx.android.synthetic.main.item_episode_card.view.*
@@ -97,9 +98,8 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                     context.getString(R.string.character_card_species, characterCardView.specie)
                 tvStatus.text =
                     context.getString(R.string.character_card_status, characterCardView.status)
-                //TODO change to get image from api - url
-                ivCharacter.setImageDrawable(context.getDrawable(R.drawable.img_character))
-                cvCharacterCard.setOnClickListener { characterCardView.onClick() }
+                ivCharacter.loadImageFromUrl(characterCardView.image)
+                cvCharacterCard.setOnClickListener { characterCardView.onClick?.invoke() }
             }
         }
     }

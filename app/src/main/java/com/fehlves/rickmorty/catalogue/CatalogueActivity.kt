@@ -3,14 +3,19 @@ package com.fehlves.rickmorty.catalogue
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseActivity
+import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.IllegalStateException
 
 class CatalogueActivity : BaseActivity() {
 
@@ -27,11 +32,18 @@ class CatalogueActivity : BaseActivity() {
 
         setupSearchView()
 
-        viewModel.onCharacterResult().observeNotNull(this) {
-            //setUpList()
+        viewModel.onCharacterResult().observeNotNull(this) { items ->
+            items.forEach {
+                it.onClick = {
+                    val myUrlToPass = it.url
+                    //startActivity() TODO start activity passing url
+                    Log.d("MY_TAG", it.url)
+                }
+            }
+            setUpList(items)
         }
 
-        setupViews()
+        loadFirstItems()
     }
 
     private fun setupSearchView() {
@@ -49,44 +61,16 @@ class CatalogueActivity : BaseActivity() {
 
     private fun setUpList(items: List<CatalogueView>) {
         itemsList += items
+        rvCatalogue.adapter?.notifyDataSetChanged()
     }
 
-    private fun setupViews() {
-
-
-        val characterCardView = CharacterCardView(
-            id = 0,
-            name = "Rick",
-            specie = "Human",
-            gender = "Unknown",
-            status = "Alive",
-            image = "link"
-        ) {
-            //TODO open character info
+    private fun loadFirstItems() {
+        when(selectedType) {
+            CHARACTER_TYPE -> viewModel.loadCharacters()
+            LOCATION_TYPE -> viewModel.loadCharacters()
+            EPISODE_TYPE -> viewModel.loadCharacters()
+            else -> throw IllegalStateException("Incorrect type")
         }
-
-        val locationCardView = LocationCardView(
-            id = 1,
-            name = "Earth",
-            type = "Planet",
-            dimension = "C89-109"
-        ) {
-            //TODO open location info
-        }
-
-        val episodeCardView = EpisodeCardView(
-            id = 2,
-            name = "Lawnmower Dog",
-            episode = "S01E02",
-            airDate = "December 9, 2013"
-        ) {
-            //TODO open episode info
-        }
-
-        val listOfAdapters =
-            listOf(characterCardView, locationCardView, episodeCardView)
-
-        setUpList(listOfAdapters)
     }
 
     companion object {

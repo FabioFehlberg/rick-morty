@@ -4,7 +4,7 @@ import retrofit2.http.GET
 
 interface CatalogueApi {
 
-    @GET
-    fun getCharacters(): List<CharacterEntity>
+    @GET("character")
+    suspend fun getCharacters(): CharacterResultEntity
 
 }
