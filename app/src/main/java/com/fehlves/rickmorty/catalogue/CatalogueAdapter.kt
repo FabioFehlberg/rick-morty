@@ -79,7 +79,6 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         override fun bind(item: BaseView) {
             val characterCardView = item as CharacterCardView
             with(itemView) {
-
                 tvName.text = characterCardView.name
                 tvGender.text =
                     context.getString(R.string.character_card_gender, characterCardView.gender)
@@ -87,6 +86,8 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                     context.getString(R.string.character_card_species, characterCardView.specie)
                 tvStatus.text =
                     context.getString(R.string.character_card_status, characterCardView.status)
+                //TODO change to get image from api - url
+                ivCharacter.setImageDrawable(context.getDrawable(R.drawable.img_character))
                 cvCharacterCard.setOnClickListener { characterCardView.onClick() }
             }
         }

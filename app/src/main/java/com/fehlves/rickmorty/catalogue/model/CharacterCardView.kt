@@ -6,5 +6,6 @@ data class CharacterCardView(
     val specie: String,
     val gender: String,
     val status: String,
+    val image: String,
     val onClick: () -> Unit
 ) : CatalogueView()

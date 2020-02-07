@@ -32,7 +32,8 @@ class CatalogueActivity : BaseActivity() {
             name = "Rick",
             specie = "Human",
             gender = "Unknown",
-            status = "Alive"
+            status = "Alive",
+            image = "link"
         ) {
             //TODO open character info
         }
