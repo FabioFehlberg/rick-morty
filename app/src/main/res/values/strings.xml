@@ -17,4 +17,13 @@
     <string name="catalogue_location_search_hint">Search location</string>
     <string name="catalogue_episode_search_hint">Search episode</string>
 
+    <string name="character_card_species">Species: %s</string>
+    <string name="character_card_gender">Gender: %s</string>
+    <string name="character_card_status">Status: %s</string>
+
+    <string name="location_card_type">Type: %s</string>
+    <string name="location_card_dimension">Dimension: %s</string>
+
+    <string name="episode_card_air_date">Air date: $s</string>
+
 </resources>

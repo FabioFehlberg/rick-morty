@@ -79,10 +79,14 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         override fun bind(item: BaseView) {
             val characterCardView = item as CharacterCardView
             with(itemView) {
+
                 tvName.text = characterCardView.name
-                tvGender.text = characterCardView.gender
-                tvSpecies.text = characterCardView.specie
-                tvStatus.text = characterCardView.status
+                tvGender.text =
+                    context.getString(R.string.character_card_gender, characterCardView.gender)
+                tvSpecies.text =
+                    context.getString(R.string.character_card_species, characterCardView.specie)
+                tvStatus.text =
+                    context.getString(R.string.character_card_status, characterCardView.status)
                 cvCharacterCard.setOnClickListener { characterCardView.onClick() }
             }
         }
@@ -93,8 +97,9 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
             val locationCardView = item as LocationCardView
             with(itemView) {
                 tvLocationName.text = locationCardView.name
-                tvType.text = locationCardView.type
-                tvDimension.text = locationCardView.dimension
+                tvType.text = context.getString(R.string.location_card_type, locationCardView.type)
+                tvDimension.text =
+                    context.getString(R.string.location_card_dimension, locationCardView.dimension)
                 cvLocation.setOnClickListener { locationCardView.onClick() }
             }
         }
@@ -106,7 +111,8 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
             with(itemView) {
                 tvEpisodeName.text = episodeCardView.name
                 tvEpisode.text = episodeCardView.episode
-                tvAirDate.text = episodeCardView.airDate
+                tvAirDate.text =
+                    context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
                 cvEpisode.setOnClickListener { episodeCardView.onClick() }
             }
         }
