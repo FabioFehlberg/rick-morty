@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.CatalogueActivity
 import com.fehlves.rickmorty.common.BaseActivity
+import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.main.model.CategoryView
 import com.fehlves.rickmorty.main.model.TitleView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +28,7 @@ class MainActivity : BaseActivity() {
             R.string.main_activity_card_characters,
             R.string.main_activity_character_description
         ) {
-            startActivity(CatalogueActivity.newInstance(this@MainActivity))
+            startActivity(CatalogueActivity.newInstance(this@MainActivity, CHARACTER_TYPE))
         }
 
         val categoryLocation = CategoryView(
@@ -33,7 +36,7 @@ class MainActivity : BaseActivity() {
             R.string.main_activity_card_locations,
             R.string.main_activity_location_description
         ) {
-            startActivity(CatalogueActivity.newInstance(this@MainActivity))
+            startActivity(CatalogueActivity.newInstance(this@MainActivity, LOCATION_TYPE))
         }
 
         val categoryEpisode = CategoryView(
@@ -41,7 +44,7 @@ class MainActivity : BaseActivity() {
             R.string.main_activity_card_episodes,
             R.string.main_activity_episode_description
         ) {
-            startActivity(CatalogueActivity.newInstance(this@MainActivity))
+            startActivity(CatalogueActivity.newInstance(this@MainActivity, EPISODE_TYPE))
         }
 
         val title = TitleView(

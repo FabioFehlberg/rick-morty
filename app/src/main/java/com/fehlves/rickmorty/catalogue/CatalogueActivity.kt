@@ -10,10 +10,13 @@ import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
+import com.fehlves.rickmorty.extensions.extra
 import kotlinx.android.synthetic.main.activity_catalogue.*
 import kotlin.random.Random
 
 class CatalogueActivity : BaseActivity() {
+
+    private val selectedType by extra<Int>(ARG_SELECTED_TYPE)
 
     override fun getContentLayoutId() = R.layout.activity_catalogue
 
@@ -25,7 +28,7 @@ class CatalogueActivity : BaseActivity() {
 
     private fun setupViews() {
         val searchView = SearchView(
-            type = Random.nextInt(1,3)
+            type = selectedType
         ) {
             //TODO call api
         }
@@ -67,6 +70,11 @@ class CatalogueActivity : BaseActivity() {
     }
 
     companion object {
-        fun newInstance(context: Context) = Intent(context, CatalogueActivity::class.java)
+        private const val ARG_SELECTED_TYPE = "arg_selected_type"
+
+        fun newInstance(context: Context, selectedType: Int) =
+            Intent(context, CatalogueActivity::class.java).apply {
+                putExtra(ARG_SELECTED_TYPE, selectedType)
+            }
     }
 }

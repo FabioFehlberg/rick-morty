@@ -10,6 +10,10 @@ import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
+import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
 import kotlinx.android.synthetic.main.item_episode_card.view.*
@@ -127,10 +131,6 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
     }
 
     companion object {
-        const val SEARCH_TYPE = 0
-        const val CHARACTER_TYPE = 1
-        const val LOCATION_TYPE = 2
-        const val EPISODE_TYPE = 3
 
         val DIFF_CALLBACK: DiffUtil.ItemCallback<CatalogueView> =
             object : DiffUtil.ItemCallback<CatalogueView>() {
