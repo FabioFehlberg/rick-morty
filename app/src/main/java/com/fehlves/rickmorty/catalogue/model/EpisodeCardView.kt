@@ -1,10 +1,9 @@
 package com.fehlves.rickmorty.catalogue.model
 
-import com.fehlves.rickmorty.common.BaseView
-
 data class EpisodeCardView(
+    override val id: Int,
     val name: String,
     val episode: String,
     val airDate: String,
     val onClick: () -> Unit
-) : BaseView()
+) : CatalogueView()

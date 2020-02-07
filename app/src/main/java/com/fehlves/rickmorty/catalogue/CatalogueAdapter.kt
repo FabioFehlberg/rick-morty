@@ -7,20 +7,15 @@ import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.catalogue.model.CharacterCardView
-import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
-import com.fehlves.rickmorty.catalogue.model.LocationCardView
-import com.fehlves.rickmorty.catalogue.model.SearchView
+import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
-import com.fehlves.rickmorty.main.model.CategoryView
-import com.fehlves.rickmorty.main.model.TitleView
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
 import kotlinx.android.synthetic.main.item_episode_card.view.*
 import kotlinx.android.synthetic.main.item_location_card.view.*
 
-class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
+class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBACK) {
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -123,22 +118,19 @@ class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         const val LOCATION_TYPE = 2
         const val EPISODE_TYPE = 3
 
-
-        //TODO consider using an sub view(model) to set an ID and ease diff callback implementation
-
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<BaseView> =
-            object : DiffUtil.ItemCallback<BaseView>() {
-                override fun areItemsTheSame(oldItem: BaseView, newItem: BaseView): Boolean {
-                    return if (oldItem is TitleView && newItem is TitleView) {
-                        oldItem.icon == newItem.icon
-                    } else if (oldItem is CategoryView && newItem is CategoryView) {
-                        oldItem.icon == newItem.icon
-                    } else {
-                        false
-                    }
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<CatalogueView> =
+            object : DiffUtil.ItemCallback<CatalogueView>() {
+                override fun areItemsTheSame(
+                    oldItem: CatalogueView,
+                    newItem: CatalogueView
+                ): Boolean {
+                    return oldItem.id == newItem.id
                 }
 
-                override fun areContentsTheSame(oldItem: BaseView, newItem: BaseView): Boolean {
+                override fun areContentsTheSame(
+                    oldItem: CatalogueView,
+                    newItem: CatalogueView
+                ): Boolean {
                     return oldItem.equals(newItem)
                 }
             }
