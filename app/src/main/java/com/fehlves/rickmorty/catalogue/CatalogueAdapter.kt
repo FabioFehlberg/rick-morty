@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseView
@@ -16,6 +17,7 @@ import com.fehlves.rickmorty.main.model.CategoryView
 import com.fehlves.rickmorty.main.model.TitleView
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
+import kotlinx.android.synthetic.main.item_episode_card.view.*
 import kotlinx.android.synthetic.main.item_location_card.view.*
 
 class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
@@ -36,6 +38,16 @@ class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
                     .inflate(R.layout.item_character_card, parent, false)
                 CharacterViewHolder(view)
             }
+            LOCATION_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_location_card, parent, false)
+                LocationViewHolder(view)
+            }
+            EPISODE_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_episode_card, parent, false)
+                EpisodeViewHolder(view)
+            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -44,6 +56,8 @@ class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         return when (getItem(position)) {
             is SearchView -> SEARCH_TYPE
             is CharacterCardView -> CHARACTER_TYPE
+            is LocationCardView -> LOCATION_TYPE
+            is EpisodeCardView -> EPISODE_TYPE
             else -> throw IllegalArgumentException("Invalid type of data at position $position")
         }
     }
@@ -91,9 +105,17 @@ class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-
-
-    //TODO continue to implement view holders for other search types
+    class EpisodeViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(item: BaseView) {
+            val episodeCardView = item as EpisodeCardView
+            with(itemView) {
+                tvEpisodeName.text = episodeCardView.name
+                tvEpisode.text = episodeCardView.episode
+                tvAirDate.text = episodeCardView.airDate
+                cvEpisode.setOnClickListener { episodeCardView.onClick() }
+            }
+        }
+    }
 
     companion object {
         const val SEARCH_TYPE = 0
