@@ -5,33 +5,54 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.catalogue.model.CharacterCardView
-import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
-import com.fehlves.rickmorty.catalogue.model.LocationCardView
-import com.fehlves.rickmorty.catalogue.model.SearchView
+import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.extensions.extra
+import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
-import kotlin.random.Random
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CatalogueActivity : BaseActivity() {
 
     private val selectedType by extra<Int>(ARG_SELECTED_TYPE)
+
+    private val viewModel: CatalogueViewModel by viewModel()
+
+    private val itemsList: ArrayList<CatalogueView> = arrayListOf()
 
     override fun getContentLayoutId() = R.layout.activity_catalogue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setupSearchView()
+
+        viewModel.onCharacterResult().observeNotNull(this) {
+            //setUpList()
+        }
+
         setupViews()
     }
 
-    private fun setupViews() {
+    private fun setupSearchView() {
         val searchView = SearchView(
             type = selectedType
         ) {
             //TODO call api
         }
+
+        itemsList += searchView
+
+        rvCatalogue.layoutManager = LinearLayoutManager(this)
+        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
+    }
+
+    private fun setUpList(items: List<CatalogueView>) {
+        itemsList += items
+    }
+
+    private fun setupViews() {
+
 
         val characterCardView = CharacterCardView(
             id = 0,
@@ -63,10 +84,9 @@ class CatalogueActivity : BaseActivity() {
         }
 
         val listOfAdapters =
-            listOf(searchView, characterCardView, locationCardView, episodeCardView)
+            listOf(characterCardView, locationCardView, episodeCardView)
 
-        rvCatalogue.layoutManager = LinearLayoutManager(this)
-        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(listOfAdapters) }
+        setUpList(listOfAdapters)
     }
 
     companion object {
