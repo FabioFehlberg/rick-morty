@@ -6,5 +6,5 @@ data class LocationCardView(
     val name: String,
     val type: String,
     val dimension: String,
-    val onClick: (String) -> Unit
+    val onClick: () -> Unit
 ) : BaseView()

@@ -6,5 +6,5 @@ data class EpisodeCardView(
     val name: String,
     val episode: String,
     val airDate: String,
-    val onClick: (String) -> Unit
+    val onClick: () -> Unit
 ) : BaseView()
