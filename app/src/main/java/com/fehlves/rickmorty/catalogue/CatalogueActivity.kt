@@ -1,8 +1,14 @@
 package com.fehlves.rickmorty.catalogue
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
+import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
+import com.fehlves.rickmorty.catalogue.model.LocationCardView
+import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_catalogue.*
 
@@ -17,38 +23,46 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun setupViews() {
-        /*val categoryCharacter = CategoryView(
-            R.drawable.img_character,
-            R.string.main_activity_card_characters,
-            R.string.main_activity_character_description
-        ) {
-            Log.d("TAGATA", "categoryCharacter")
+        val searchView = SearchView {
+            //TODO call api
         }
 
-        val categoryLocation = CategoryView(
-            R.drawable.img_location,
-            R.string.main_activity_card_locations,
-            R.string.main_activity_location_description
+        val characterCardView = CharacterCardView(
+            id = 0,
+            name = "Rick",
+            specie = "Human",
+            gender = "Unknown",
+            status = "Alive"
         ) {
-            Log.d("TAGATA", "categoryLocation")
+            //TODO open character info
         }
 
-        val categoryEpisode = CategoryView(
-            R.drawable.img_episode,
-            R.string.main_activity_card_episodes,
-            R.string.main_activity_episode_description
+        val locationCardView = LocationCardView(
+            id = 1,
+            name = "Earth",
+            type = "Planet",
+            dimension = "C89-109"
         ) {
-            Log.d("TAGATA", "categoryEpisode")
+            //TODO open location info
         }
 
-        val title = TitleView(
-            R.drawable.img_rick_morty,
-            R.string.main_activity_title_description
-        )
+        val episodeCardView = EpisodeCardView(
+            id = 2,
+            name = "Lawnmower Dog",
+            episode = "S01E02",
+            airDate = "December 9, 2013"
+        ) {
+            //TODO open episode info
+        }
 
-        val listOfAdapters = listOf(title, categoryCharacter, categoryLocation, categoryEpisode)*/
+        val listOfAdapters =
+            listOf(searchView, characterCardView, locationCardView, episodeCardView)
 
         rvCatalogue.layoutManager = LinearLayoutManager(this)
-        //rvCatalogue.adapter = MainAdapter().apply { submitList(listOfAdapters) }
+        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(listOfAdapters) }
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, CatalogueActivity::class.java)
     }
 }
