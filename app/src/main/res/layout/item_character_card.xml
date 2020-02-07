@@ -23,7 +23,7 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/ivIcon"
+            android:id="@+id/ivCharacter"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="@dimen/margin_padding_small"
@@ -41,7 +41,7 @@
             android:textColor="@color/colorYellow"
             android:textSize="@dimen/material_typography_headline"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/ivIcon"
+            app:layout_constraintStart_toEndOf="@+id/ivCharacter"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Rick Sanchez" />
 
