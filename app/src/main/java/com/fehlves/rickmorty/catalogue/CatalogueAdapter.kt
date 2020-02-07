@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
@@ -15,6 +16,7 @@ import com.fehlves.rickmorty.main.model.CategoryView
 import com.fehlves.rickmorty.main.model.TitleView
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
+import kotlinx.android.synthetic.main.item_location_card.view.*
 
 class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
 
@@ -72,10 +74,24 @@ class CatalogueAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
                 tvGender.text = characterCardView.gender
                 tvSpecies.text = characterCardView.specie
                 tvStatus.text = characterCardView.status
-                cvCharacterCard.setOnClickListener { characterCardView.onClick(characterCardView.url) }
+                cvCharacterCard.setOnClickListener { characterCardView.onClick() }
             }
         }
     }
+
+    class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(item: BaseView) {
+            val locationCardView = item as LocationCardView
+            with(itemView) {
+                tvLocationName.text = locationCardView.name
+                tvType.text = locationCardView.type
+                tvDimension.text = locationCardView.dimension
+                cvLocation.setOnClickListener { locationCardView.onClick() }
+            }
+        }
+    }
+
+
 
     //TODO continue to implement view holders for other search types
 
