@@ -23,13 +23,14 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
     fun onCharacterResult(): LiveData<List<CharacterCardView>> = onCharacterResult
     fun onShowLoading(): LiveData<Boolean> = onShowLoading
 
-    fun loadCharacters() {
+    fun loadCharacters(pageNumber: Int) {
 
         onShowLoading.value = true
 
         launch {
 
-            val result = withContext(Dispatchers.IO) { catalogueRepository.getCharacters() }
+            val result =
+                withContext(Dispatchers.IO) { catalogueRepository.getCharacters(pageNumber) }
 
             onShowLoading.value = false
 

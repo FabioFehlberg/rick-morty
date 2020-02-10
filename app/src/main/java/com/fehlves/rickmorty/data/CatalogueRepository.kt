@@ -5,6 +5,6 @@ import com.fehlves.rickmorty.common.BaseResult
 
 interface CatalogueRepository {
 
-    suspend fun getCharacters(): BaseResult<List<CharacterCardView>>
+    suspend fun getCharacters(pageNumber: Int): BaseResult<List<CharacterCardView>>
 
 }

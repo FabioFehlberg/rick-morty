@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseActivity
@@ -31,6 +32,7 @@ class CatalogueActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         setupSearchView()
+        setupList()
 
         viewModel.onCharacterResult().observeNotNull(this) { items ->
             items.forEach {
@@ -40,10 +42,23 @@ class CatalogueActivity : BaseActivity() {
                     Log.d("MY_TAG", it.url)
                 }
             }
-            setUpList(items)
+            setupNewItems(items)
         }
 
-        loadFirstItems()
+        loadItems(0)
+    }
+
+    private fun setupList() {
+        val linearLayoutManager = LinearLayoutManager(this)
+        rvCatalogue.layoutManager = linearLayoutManager
+        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
+
+        rvCatalogue.addOnScrollListener(object :
+            EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                loadItems(page)
+            }
+        })
     }
 
     private fun setupSearchView() {
@@ -54,21 +69,18 @@ class CatalogueActivity : BaseActivity() {
         }
 
         itemsList += searchView
-
-        rvCatalogue.layoutManager = LinearLayoutManager(this)
-        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
     }
 
-    private fun setUpList(items: List<CatalogueView>) {
+    private fun setupNewItems(items: List<CatalogueView>) {
         itemsList += items
         rvCatalogue.adapter?.notifyDataSetChanged()
     }
 
-    private fun loadFirstItems() {
-        when(selectedType) {
-            CHARACTER_TYPE -> viewModel.loadCharacters()
-            LOCATION_TYPE -> viewModel.loadCharacters()
-            EPISODE_TYPE -> viewModel.loadCharacters()
+    private fun loadItems(page: Int) {
+        when (selectedType) {
+            CHARACTER_TYPE -> viewModel.loadCharacters(page)
+            LOCATION_TYPE -> viewModel.loadCharacters(page)
+            EPISODE_TYPE -> viewModel.loadCharacters(page)
             else -> throw IllegalStateException("Incorrect type")
         }
     }
