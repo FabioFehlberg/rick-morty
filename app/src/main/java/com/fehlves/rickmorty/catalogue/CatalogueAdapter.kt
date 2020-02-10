@@ -6,18 +6,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.airbnb.lottie.LottieDrawable.INFINITE
+import com.airbnb.lottie.LottieDrawable.REVERSE
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOADING_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import kotlinx.android.synthetic.main.item_catalogue_search.view.*
 import kotlinx.android.synthetic.main.item_character_card.view.*
 import kotlinx.android.synthetic.main.item_episode_card.view.*
+import kotlinx.android.synthetic.main.item_loading_card.view.*
 import kotlinx.android.synthetic.main.item_location_card.view.*
 
 class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBACK) {
@@ -48,6 +52,11 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                     .inflate(R.layout.item_episode_card, parent, false)
                 EpisodeViewHolder(view)
             }
+            LOADING_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_loading_card, parent, false)
+                LoadingViewHolder(view)
+            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -58,6 +67,7 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
             is CharacterCardView -> CHARACTER_TYPE
             is LocationCardView -> LOCATION_TYPE
             is EpisodeCardView -> EPISODE_TYPE
+            is LoadingCardView -> LOADING_TYPE
             else -> throw IllegalArgumentException("Invalid type of data at position $position")
         }
     }
@@ -126,6 +136,17 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                 tvAirDate.text =
                     context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
                 cvEpisode.setOnClickListener { episodeCardView.onClick() }
+            }
+        }
+    }
+
+    class LoadingViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        override fun bind(item: BaseView) {
+            with(itemView.laLoading) {
+                setAnimation("loading.json")
+                repeatMode = REVERSE
+                repeatCount = INFINITE
+                playAnimation()
             }
         }
     }

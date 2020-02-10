@@ -7,7 +7,9 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.catalogue.model.*
+import com.fehlves.rickmorty.catalogue.model.CatalogueView
+import com.fehlves.rickmorty.catalogue.model.LoadingCardView
+import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
@@ -16,7 +18,6 @@ import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.IllegalStateException
 
 class CatalogueActivity : BaseActivity() {
 
@@ -26,6 +27,17 @@ class CatalogueActivity : BaseActivity() {
 
     private val itemsList: ArrayList<CatalogueView> = arrayListOf()
 
+    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+
+    private val endlessScrollListener by lazy {
+        object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                loadItems(page)
+                //rvCatalogue.removeOnScrollListener(this)
+            }
+        }
+    }
+
     override fun getContentLayoutId() = R.layout.activity_catalogue
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,31 +46,7 @@ class CatalogueActivity : BaseActivity() {
         setupSearchView()
         setupList()
 
-        viewModel.onCharacterResult().observeNotNull(this) { items ->
-            items.forEach {
-                it.onClick = {
-                    val myUrlToPass = it.url
-                    //startActivity() TODO start activity passing url
-                    Log.d("MY_TAG", it.url)
-                }
-            }
-            setupNewItems(items)
-        }
-
-        loadItems(0)
-    }
-
-    private fun setupList() {
-        val linearLayoutManager = LinearLayoutManager(this)
-        rvCatalogue.layoutManager = linearLayoutManager
-        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
-
-        rvCatalogue.addOnScrollListener(object :
-            EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                loadItems(page)
-            }
-        })
+        setupObservables()
     }
 
     private fun setupSearchView() {
@@ -71,9 +59,36 @@ class CatalogueActivity : BaseActivity() {
         itemsList += searchView
     }
 
+    private fun setupList() {
+        rvCatalogue.layoutManager = linearLayoutManager
+        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
+        rvCatalogue.addOnScrollListener(endlessScrollListener)
+    }
+
+    private fun setupObservables() {
+        viewModel.onCharacterResult().observeNotNull(this) { items ->
+            items.forEach {
+                it.onClick = {
+                    val myUrlToPass = it.url
+                    //startActivity() TODO start activity passing url
+                    Log.d("MY_TAG", myUrlToPass)
+                }
+            }
+            setupNewItems(items)
+        }
+
+        viewModel.onShowLoading().observeNotNull(this) { isToShow ->
+            if (isToShow)
+                showLoadingNewItems()
+            else
+                hideLoadingNewItems()
+        }
+    }
+
     private fun setupNewItems(items: List<CatalogueView>) {
         itemsList += items
         rvCatalogue.adapter?.notifyDataSetChanged()
+        //rvCatalogue.addOnScrollListener(endlessScrollListener)
     }
 
     private fun loadItems(page: Int) {
@@ -82,6 +97,18 @@ class CatalogueActivity : BaseActivity() {
             LOCATION_TYPE -> viewModel.loadCharacters(page)
             EPISODE_TYPE -> viewModel.loadCharacters(page)
             else -> throw IllegalStateException("Incorrect type")
+        }
+    }
+
+    private fun showLoadingNewItems() {
+        itemsList += LoadingCardView()
+        rvCatalogue.adapter?.notifyDataSetChanged()
+    }
+
+    private fun hideLoadingNewItems() {
+        itemsList.find { it.id == Int.MAX_VALUE }?.let {
+            itemsList.remove(it)
+            rvCatalogue.adapter?.notifyDataSetChanged()
         }
     }
 

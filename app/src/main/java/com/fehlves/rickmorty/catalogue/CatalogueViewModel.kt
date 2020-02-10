@@ -25,14 +25,14 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
 
     fun loadCharacters(pageNumber: Int) {
 
-        onShowLoading.value = true
+        onShowLoading.postValue(true)
 
         launch {
 
             val result =
                 withContext(Dispatchers.IO) { catalogueRepository.getCharacters(pageNumber) }
 
-            onShowLoading.value = false
+            onShowLoading.postValue(false)
 
             when (result) {
                 is BaseResult.Success -> {
