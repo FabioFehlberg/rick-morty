@@ -32,8 +32,8 @@ class CatalogueActivity : BaseActivity() {
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                rvCatalogue.removeOnScrollListener(this)
                 loadItems(page)
-                //rvCatalogue.removeOnScrollListener(this)
             }
         }
     }
@@ -88,7 +88,7 @@ class CatalogueActivity : BaseActivity() {
     private fun setupNewItems(items: List<CatalogueView>) {
         itemsList += items
         rvCatalogue.adapter?.notifyDataSetChanged()
-        //rvCatalogue.addOnScrollListener(endlessScrollListener)
+        rvCatalogue.addOnScrollListener(endlessScrollListener)
     }
 
     private fun loadItems(page: Int) {
