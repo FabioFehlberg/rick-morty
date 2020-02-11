@@ -30,6 +30,7 @@ class CatalogueActivity : BaseActivity() {
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
 
     private var characterName = ""
+    private var locationName = ""
 
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -57,6 +58,7 @@ class CatalogueActivity : BaseActivity() {
         ) {
             resetList()
             characterName = it
+            locationName = it
             loadItems(0)
         }
 
@@ -88,6 +90,17 @@ class CatalogueActivity : BaseActivity() {
             setupNewItems(items)
         }
 
+        viewModel.onLocationResult().observeNotNull(this) { items ->
+            items.forEach {
+                it.onClick = {
+                    val myUrlToPass = it.url
+                    //startActivity() TODO start activity passing url
+                    Log.d("MY_TAG", myUrlToPass)
+                }
+            }
+            setupNewItems(items)
+        }
+
         viewModel.onShowLoading().observeNotNull(this) { isToShow ->
             if (isToShow)
                 showLoadingNewItems()
@@ -105,7 +118,7 @@ class CatalogueActivity : BaseActivity() {
     private fun loadItems(page: Int) {
         when (selectedType) {
             CHARACTER_TYPE -> viewModel.loadCharacters(page, characterName)
-            LOCATION_TYPE -> viewModel.loadCharacters(page, characterName)
+            LOCATION_TYPE -> viewModel.loadLocations(page, locationName)
             EPISODE_TYPE -> viewModel.loadCharacters(page, characterName)
             else -> throw IllegalStateException("Incorrect type")
         }

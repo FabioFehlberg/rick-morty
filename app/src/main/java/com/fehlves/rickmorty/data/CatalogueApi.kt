@@ -14,4 +14,12 @@ interface CatalogueApi {
         @Query("gender") gender: String = Constants.CharacterGender.NON_SPECIFIED
     ): CharacterResultEntity
 
+    @GET("location")
+    suspend fun getLocations(
+        @Query("page") pageNumber: Int,
+        @Query("name") name: String = "",
+        @Query("type") type: String = "",
+        @Query("dimension") dimension: String = ""
+    ): LocationResultEntity
+
 }

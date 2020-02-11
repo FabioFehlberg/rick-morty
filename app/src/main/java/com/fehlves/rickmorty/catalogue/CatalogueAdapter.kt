@@ -122,7 +122,7 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                 tvType.text = context.getString(R.string.location_card_type, locationCardView.type)
                 tvDimension.text =
                     context.getString(R.string.location_card_dimension, locationCardView.dimension)
-                cvLocation.setOnClickListener { locationCardView.onClick() }
+                cvLocation.setOnClickListener { locationCardView.onClick?.invoke() }
             }
         }
     }
