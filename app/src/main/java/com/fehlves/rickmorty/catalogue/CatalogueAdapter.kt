@@ -135,7 +135,7 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                 tvEpisode.text = episodeCardView.episode
                 tvAirDate.text =
                     context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
-                cvEpisode.setOnClickListener { episodeCardView.onClick() }
+                cvEpisode.setOnClickListener { episodeCardView.onClick?.invoke() }
             }
         }
     }

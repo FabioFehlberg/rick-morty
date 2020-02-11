@@ -22,4 +22,11 @@ interface CatalogueApi {
         @Query("dimension") dimension: String = ""
     ): LocationResultEntity
 
+    @GET("episode")
+    suspend fun getEpisodes(
+        @Query("page") pageNumber: Int,
+        @Query("name") name: String = "",
+        @Query("episode") type: String = ""
+    ): EpisodeResultEntity
+
 }

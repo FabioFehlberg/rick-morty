@@ -1,6 +1,7 @@
 package com.fehlves.rickmorty.data
 
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
 import java.lang.Exception
@@ -28,6 +29,21 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) : CatalogueRepo
         return try {
             val result = catalogueApi.getLocations(pageNumber, locationName).results.map {
                 it.toLocationCardView()
+            }
+            BaseResult.Success(result)
+        } catch (ex: Exception) {
+            BaseResult.Error(ex)
+        }
+    }
+
+    override suspend fun getEpisodes(
+        pageNumber: Int,
+        episodeName: String,
+        episode: String
+    ): BaseResult<List<EpisodeCardView>> {
+        return try {
+            val result = catalogueApi.getEpisodes(pageNumber, episodeName, episode).results.map {
+                it.toEpisodeCardView()
             }
             BaseResult.Success(result)
         } catch (ex: Exception) {

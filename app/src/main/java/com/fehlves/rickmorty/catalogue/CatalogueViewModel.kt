@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.data.CatalogueDataStore
@@ -21,10 +22,12 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
     private val onShowLoading = MutableLiveData<Boolean>()
     private val onCharacterResult = MutableLiveData<List<CharacterCardView>>()
     private val onLocationResult = MutableLiveData<List<LocationCardView>>()
+    private val onEpisodeResult = MutableLiveData<List<EpisodeCardView>>()
 
     fun onShowLoading(): LiveData<Boolean> = onShowLoading
     fun onCharacterResult(): LiveData<List<CharacterCardView>> = onCharacterResult
     fun onLocationResult(): LiveData<List<LocationCardView>> = onLocationResult
+    fun onEpisodeResult(): LiveData<List<EpisodeCardView>> = onEpisodeResult
 
     fun loadCharacters(pageNumber: Int, characterName: String = "") {
 
@@ -81,6 +84,39 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "deu certo uai"
                     )
                     onLocationResult.postValue(result.data)
+                }
+                is BaseResult.Error -> Log.d(
+                    "MY_LOG",
+                    result.exception.message ?: "message is null"
+                )
+            }
+        }
+    }
+
+    fun loadEpisodes(pageNumber: Int, episodeName: String = "", episode: String = "") {
+
+        onShowLoading.postValue(true)
+
+        launch {
+
+            val result =
+                withContext(Dispatchers.IO) {
+                    catalogueRepository.getEpisodes(
+                        pageNumber,
+                        episodeName,
+                        episode
+                    )
+                }
+
+            onShowLoading.postValue(false)
+
+            when (result) {
+                is BaseResult.Success -> {
+                    Log.d(
+                        "MY_LOG",
+                        "deu certo uai"
+                    )
+                    onEpisodeResult.postValue(result.data)
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
