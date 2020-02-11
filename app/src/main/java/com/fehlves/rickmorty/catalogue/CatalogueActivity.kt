@@ -29,6 +29,8 @@ class CatalogueActivity : BaseActivity() {
 
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
 
+    private var characterName = ""
+
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
@@ -53,7 +55,9 @@ class CatalogueActivity : BaseActivity() {
         val searchView = SearchView(
             type = selectedType
         ) {
-            //TODO call api
+            resetList()
+            characterName = it
+            loadItems(0)
         }
 
         itemsList += searchView
@@ -63,6 +67,13 @@ class CatalogueActivity : BaseActivity() {
         rvCatalogue.layoutManager = linearLayoutManager
         rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
         rvCatalogue.addOnScrollListener(endlessScrollListener)
+    }
+
+    private fun resetList() {
+        endlessScrollListener.resetState()
+        val searchView = itemsList.first()
+        itemsList.clear()
+        itemsList += searchView
     }
 
     private fun setupObservables() {
@@ -93,9 +104,9 @@ class CatalogueActivity : BaseActivity() {
 
     private fun loadItems(page: Int) {
         when (selectedType) {
-            CHARACTER_TYPE -> viewModel.loadCharacters(page)
-            LOCATION_TYPE -> viewModel.loadCharacters(page)
-            EPISODE_TYPE -> viewModel.loadCharacters(page)
+            CHARACTER_TYPE -> viewModel.loadCharacters(page, characterName)
+            LOCATION_TYPE -> viewModel.loadCharacters(page, characterName)
+            EPISODE_TYPE -> viewModel.loadCharacters(page, characterName)
             else -> throw IllegalStateException("Incorrect type")
         }
     }

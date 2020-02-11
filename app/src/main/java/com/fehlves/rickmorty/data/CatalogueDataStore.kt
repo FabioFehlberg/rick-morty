@@ -5,10 +5,14 @@ import com.fehlves.rickmorty.common.BaseResult
 import java.lang.Exception
 
 class CatalogueDataStore(private val catalogueApi: CatalogueApi) : CatalogueRepository {
-    override suspend fun getCharacters(pageNumber: Int): BaseResult<List<CharacterCardView>> {
+    override suspend fun getCharacters(
+        pageNumber: Int,
+        characterName: String
+    ): BaseResult<List<CharacterCardView>> {
         return try {
-            val result =
-                catalogueApi.getCharacters(pageNumber).results.map { it.toCharacterCardView() }
+            val result = catalogueApi.getCharacters(pageNumber, characterName).results.map {
+                it.toCharacterCardView()
+            }
             BaseResult.Success(result)
         } catch (ex: Exception) {
             BaseResult.Error(ex)
