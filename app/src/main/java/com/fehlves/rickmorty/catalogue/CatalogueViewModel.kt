@@ -8,6 +8,10 @@ import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
+import com.fehlves.rickmorty.common.Constants
+import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.data.CatalogueDataStore
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -29,7 +33,16 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
     fun onLocationResult(): LiveData<List<LocationCardView>> = onLocationResult
     fun onEpisodeResult(): LiveData<List<EpisodeCardView>> = onEpisodeResult
 
-    fun loadCharacters(pageNumber: Int, characterName: String = "") {
+    fun loadMoreItems(page: Int, searchInput: String, selectedType: Int) {
+        when (selectedType) {
+            CHARACTER_TYPE -> loadCharacters(page, searchInput)
+            LOCATION_TYPE -> loadLocations(page, searchInput)
+            EPISODE_TYPE -> loadEpisodes(page, searchInput)
+            else -> throw IllegalStateException("Incorrect type")
+        }
+    }
+
+    private fun loadCharacters(pageNumber: Int, characterName: String = "") {
 
         onShowLoading.postValue(true)
 
@@ -61,7 +74,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
         }
     }
 
-    fun loadLocations(pageNumber: Int, locationName: String = "") {
+    private fun loadLocations(pageNumber: Int, locationName: String = "") {
 
         onShowLoading.postValue(true)
 
@@ -93,7 +106,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
         }
     }
 
-    fun loadEpisodes(pageNumber: Int, episodeName: String = "", episode: String = "") {
+    private fun loadEpisodes(pageNumber: Int, episodeName: String = "", episode: String = "") {
 
         onShowLoading.postValue(true)
 

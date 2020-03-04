@@ -11,9 +11,6 @@ import com.fehlves.rickmorty.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
-import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
-import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
-import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
@@ -126,12 +123,7 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun loadItems(page: Int) {
-        when (selectedType) {
-            CHARACTER_TYPE -> viewModel.loadCharacters(page, searchInput)
-            LOCATION_TYPE -> viewModel.loadLocations(page, searchInput)
-            EPISODE_TYPE -> viewModel.loadEpisodes(page, searchInput)
-            else -> throw IllegalStateException("Incorrect type")
-        }
+        viewModel.loadMoreItems(page, searchInput, selectedType)
     }
 
     private fun showLoadingNewItems() {
