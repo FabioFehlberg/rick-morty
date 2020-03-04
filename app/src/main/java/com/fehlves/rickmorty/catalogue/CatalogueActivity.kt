@@ -55,9 +55,8 @@ class CatalogueActivity : BaseActivity() {
         val searchView = SearchView(
             type = selectedType
         ) {
-            resetList()
             searchInput = it
-            loadItems(0)
+            resetList()
         }
 
         itemsList += searchView
@@ -70,10 +69,12 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun resetList() {
+        rvCatalogue.removeOnScrollListener(endlessScrollListener)
         endlessScrollListener.resetState()
         val searchView = itemsList.first()
         itemsList.clear()
         itemsList += searchView
+        rvCatalogue.addOnScrollListener(endlessScrollListener)
     }
 
     private fun setupObservables() {
