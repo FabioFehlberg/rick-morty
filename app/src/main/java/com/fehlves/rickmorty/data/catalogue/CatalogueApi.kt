@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.data
+package com.fehlves.rickmorty.data.catalogue
 
 import com.fehlves.rickmorty.common.Constants
 import retrofit2.http.GET

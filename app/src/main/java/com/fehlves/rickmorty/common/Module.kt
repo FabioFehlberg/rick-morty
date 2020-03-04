@@ -1,8 +1,8 @@
 package com.fehlves.rickmorty.common
 
 import com.fehlves.rickmorty.catalogue.CatalogueViewModel
-import com.fehlves.rickmorty.data.CatalogueApi
-import com.fehlves.rickmorty.data.CatalogueDataStore
+import com.fehlves.rickmorty.data.catalogue.CatalogueApi
+import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

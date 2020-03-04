@@ -8,11 +8,10 @@ import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
-import com.fehlves.rickmorty.common.Constants
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
-import com.fehlves.rickmorty.data.CatalogueDataStore
+import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

@@ -1,10 +1,10 @@
-package com.fehlves.rickmorty.data
+package com.fehlves.rickmorty.data.catalogue
 
 import com.google.gson.annotations.SerializedName
 
-data class CharacterResultEntity(
+data class EpisodeResultEntity(
     @SerializedName("info")
     val info: InfoEntity,
     @SerializedName("results")
-    val results: List<CharacterEntity>
+    val results: List<EpisodeEntity>
 )
