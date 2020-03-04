@@ -29,10 +29,7 @@ class CatalogueActivity : BaseActivity() {
 
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
 
-    private var characterName = ""
-    private var locationName = ""
-    private var episodeName = ""
-    private var episodeCode = ""
+    private var searchInput = ""
 
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -59,9 +56,7 @@ class CatalogueActivity : BaseActivity() {
             type = selectedType
         ) {
             resetList()
-            characterName = it
-            locationName = it
-            episodeName = it
+            searchInput = it
             loadItems(0)
         }
 
@@ -131,9 +126,9 @@ class CatalogueActivity : BaseActivity() {
 
     private fun loadItems(page: Int) {
         when (selectedType) {
-            CHARACTER_TYPE -> viewModel.loadCharacters(page, characterName)
-            LOCATION_TYPE -> viewModel.loadLocations(page, locationName)
-            EPISODE_TYPE -> viewModel.loadEpisodes(page, episodeName)
+            CHARACTER_TYPE -> viewModel.loadCharacters(page, searchInput)
+            LOCATION_TYPE -> viewModel.loadLocations(page, searchInput)
+            EPISODE_TYPE -> viewModel.loadEpisodes(page, searchInput)
             else -> throw IllegalStateException("Incorrect type")
         }
     }
