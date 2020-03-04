@@ -15,7 +15,7 @@ class CharacterDetailActivity : BaseActivity() {
 
     private val characterId by extra<Int>(ARG_CHARACTER_ID)
 
-    override fun getContentLayoutId() = R.layout.activity_catalogue
+    override fun getContentLayoutId() = R.layout.activity_character_detail
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
