@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.data.catalogue
+package com.fehlves.rickmorty.data
 
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.google.gson.annotations.SerializedName

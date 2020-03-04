@@ -4,6 +4,9 @@ import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
+import com.fehlves.rickmorty.data.toCharacterCardView
+import com.fehlves.rickmorty.data.toEpisodeCardView
+import com.fehlves.rickmorty.data.toLocationCardView
 
 class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
     CatalogueRepository {
