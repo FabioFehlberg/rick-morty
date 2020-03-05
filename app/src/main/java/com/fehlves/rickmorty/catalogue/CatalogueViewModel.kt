@@ -3,11 +3,11 @@ package com.fehlves.rickmorty.catalogue
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
+import com.fehlves.rickmorty.common.BaseViewModel
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
@@ -15,15 +15,11 @@ import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
 import com.fehlves.rickmorty.data.toCharacterCardView
 import com.fehlves.rickmorty.data.toEpisodeCardView
 import com.fehlves.rickmorty.data.toLocationCardView
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : ViewModel(),
-    CoroutineScope {
-
-    private val job = Job()
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
+class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : BaseViewModel() {
 
     private val onShowLoading = MutableLiveData<Boolean>()
     private val onCharacterResult = MutableLiveData<List<CharacterCardView>>()
@@ -139,11 +135,5 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                 )
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        job.cancel()
     }
 }

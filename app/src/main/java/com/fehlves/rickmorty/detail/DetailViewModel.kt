@@ -3,8 +3,8 @@ package com.fehlves.rickmorty.detail
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.fehlves.rickmorty.common.BaseResult
+import com.fehlves.rickmorty.common.BaseViewModel
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
@@ -12,15 +12,11 @@ import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
 import com.fehlves.rickmorty.data.detail.DetailDataStore
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailViewModel(private val detailRepository: DetailDataStore) : ViewModel(),
-    CoroutineScope {
-
-    private val job = Job()
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
+class DetailViewModel(private val detailRepository: DetailDataStore) : BaseViewModel() {
 
     private val onCharacterResult = MutableLiveData<CharacterEntity>()
     private val onLocationResult = MutableLiveData<LocationEntity>()
@@ -112,11 +108,5 @@ class DetailViewModel(private val detailRepository: DetailDataStore) : ViewModel
                 )
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        job.cancel()
     }
 }
