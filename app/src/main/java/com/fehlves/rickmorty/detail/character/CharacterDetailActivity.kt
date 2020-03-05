@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.detail
+package com.fehlves.rickmorty.detail.character
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
+import com.fehlves.rickmorty.detail.DetailViewModel
 import com.fehlves.rickmorty.extensions.extra
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -14,7 +14,7 @@ import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
-import com.fehlves.rickmorty.detail.CharacterDetailActivity
+import com.fehlves.rickmorty.detail.character.CharacterDetailActivity
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
