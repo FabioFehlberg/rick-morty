@@ -1,9 +1,12 @@
 package com.fehlves.rickmorty.data
 
+import android.os.Parcelable
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseEntity
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class LocationEntity(
     @SerializedName("created")
     val created: String,
@@ -19,7 +22,7 @@ data class LocationEntity(
     val type: String,
     @SerializedName("url")
     val url: String
-): BaseEntity()
+): BaseEntity(), Parcelable
 
 fun LocationEntity.toLocationCardView(): LocationCardView {
     return LocationCardView(

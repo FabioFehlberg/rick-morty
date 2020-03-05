@@ -1,9 +1,12 @@
 package com.fehlves.rickmorty.data
 
+import android.os.Parcelable
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.common.BaseEntity
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CharacterEntity(
     @SerializedName("created")
     val created: String,
@@ -29,21 +32,23 @@ data class CharacterEntity(
     val type: String,
     @SerializedName("url")
     val url: String
-) : BaseEntity()
+) : BaseEntity(), Parcelable
 
+@Parcelize
 data class Location(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-)
+): Parcelable
 
+@Parcelize
 data class Origin(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-)
+): Parcelable
 
 fun CharacterEntity.toCharacterCardView(): CharacterCardView {
     return CharacterCardView(

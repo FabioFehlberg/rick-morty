@@ -14,6 +14,7 @@ import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
+import com.fehlves.rickmorty.detail.CharacterDetailActivity
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import kotlinx.android.synthetic.main.activity_catalogue.*
@@ -82,12 +83,11 @@ class CatalogueActivity : BaseActivity() {
 
     private fun setupObservables() {
         viewModel.onCharacterResult().observeNotNull(this) { items ->
-            items.forEach {
-                it.onClick = {
-                    val entity = viewModel.getItemEntityById(it.id) as? CharacterEntity
+            items.forEach { item ->
+                item.onClick = {
+                    val entity = viewModel.getItemEntityById(item.id) as? CharacterEntity
                     entity?.let {
-                        //startActivity() TODO start activity passing url
-                        Log.d("MY_TAG", entity.toString())
+                        startActivity(CharacterDetailActivity.newInstance(this, it))
                     }
                 }
             }
