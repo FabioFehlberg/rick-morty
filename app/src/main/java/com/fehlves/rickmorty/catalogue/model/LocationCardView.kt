@@ -5,6 +5,5 @@ data class LocationCardView(
     val name: String,
     val type: String,
     val dimension: String,
-    val url: String,
     var onClick: (() -> Unit)? = null
 ) : CatalogueView()

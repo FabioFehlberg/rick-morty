@@ -1,13 +1,14 @@
 package com.fehlves.rickmorty.data
 
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
+import com.fehlves.rickmorty.common.BaseEntity
 import com.google.gson.annotations.SerializedName
 
 data class LocationEntity(
     @SerializedName("created")
     val created: String,
     @SerializedName("id")
-    val id: Int,
+    override val id: Int,
     @SerializedName("residents")
     val residents: List<String>,
     @SerializedName("name")
@@ -18,14 +19,13 @@ data class LocationEntity(
     val type: String,
     @SerializedName("url")
     val url: String
-)
+): BaseEntity()
 
 fun LocationEntity.toLocationCardView(): LocationCardView {
     return LocationCardView(
         id = id,
         name = name,
         type = type,
-        dimension = dimension,
-        url = url
+        dimension = dimension
     )
 }

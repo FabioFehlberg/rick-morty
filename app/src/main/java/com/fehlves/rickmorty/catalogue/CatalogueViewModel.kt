@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.catalogue.model.LocationCardView
+import com.fehlves.rickmorty.common.BaseEntity
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.common.BaseViewModel
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
@@ -21,6 +22,9 @@ import kotlinx.coroutines.withContext
 
 class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : BaseViewModel() {
 
+    private val itemsEntity = arrayListOf<BaseEntity>()
+    private var selectedType = Int.MIN_VALUE
+
     private val onShowLoading = MutableLiveData<Boolean>()
     private val onCharacterResult = MutableLiveData<List<CharacterCardView>>()
     private val onLocationResult = MutableLiveData<List<LocationCardView>>()
@@ -31,7 +35,19 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
     fun onLocationResult(): LiveData<List<LocationCardView>> = onLocationResult
     fun onEpisodeResult(): LiveData<List<EpisodeCardView>> = onEpisodeResult
 
-    fun loadMoreItems(page: Int, searchInput: String, selectedType: Int) {
+    fun setSelectedType(type: Int) {
+        selectedType = type
+    }
+
+    fun resetListOfItems() {
+        itemsEntity.clear()
+    }
+
+    fun getItemEntityById(id: Int) {
+        itemsEntity.find { it.id == id }
+    }
+
+    fun loadMoreItems(page: Int, searchInput: String) {
         when (selectedType) {
             CHARACTER_TYPE -> loadCharacters(page, searchInput)
             LOCATION_TYPE -> loadLocations(page, searchInput)
@@ -62,7 +78,9 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onCharacterResult.postValue(result.data.results.map { it.toCharacterCardView() })
+                    val items = result.data.results
+                    itemsEntity.addAll(items)
+                    onCharacterResult.postValue(items.map { it.toCharacterCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
@@ -94,7 +112,9 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onLocationResult.postValue(result.data.results.map { it.toLocationCardView() })
+                    val items = result.data.results
+                    itemsEntity.addAll(items)
+                    onLocationResult.postValue(items.map { it.toLocationCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
@@ -127,7 +147,9 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onEpisodeResult.postValue(result.data.results.map { it.toEpisodeCardView() })
+                    val items = result.data.results
+                    itemsEntity.addAll(items)
+                    onEpisodeResult.postValue(items.map { it.toEpisodeCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",

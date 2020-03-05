@@ -1,6 +1,7 @@
 package com.fehlves.rickmorty.data
 
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.common.BaseEntity
 import com.google.gson.annotations.SerializedName
 
 data class CharacterEntity(
@@ -11,7 +12,7 @@ data class CharacterEntity(
     @SerializedName("gender")
     val gender: String,
     @SerializedName("id")
-    val id: Int,
+    override val id: Int,
     @SerializedName("image")
     val image: String,
     @SerializedName("location")
@@ -28,7 +29,7 @@ data class CharacterEntity(
     val type: String,
     @SerializedName("url")
     val url: String
-)
+) : BaseEntity()
 
 data class Location(
     @SerializedName("name")
@@ -51,7 +52,6 @@ fun CharacterEntity.toCharacterCardView(): CharacterCardView {
         specie = species,
         gender = gender,
         status = status,
-        image = image,
-        url = url
+        image = image
     )
 }

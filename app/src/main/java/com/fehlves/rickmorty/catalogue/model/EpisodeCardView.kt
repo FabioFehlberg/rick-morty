@@ -5,6 +5,5 @@ data class EpisodeCardView(
     val name: String,
     val episode: String,
     val airDate: String,
-    val url: String,
     var onClick: (() -> Unit)? = null
 ) : CatalogueView()

@@ -42,6 +42,8 @@ class CatalogueActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel.setSelectedType(selectedType)
+
         setupSearchView()
         setupList()
 
@@ -69,6 +71,7 @@ class CatalogueActivity : BaseActivity() {
         rvCatalogue.removeOnScrollListener(endlessScrollListener)
         endlessScrollListener.resetState()
         val searchView = itemsList.first()
+        viewModel.resetListOfItems()
         itemsList.clear()
         itemsList += searchView
         rvCatalogue.addOnScrollListener(endlessScrollListener)
@@ -78,9 +81,9 @@ class CatalogueActivity : BaseActivity() {
         viewModel.onCharacterResult().observeNotNull(this) { items ->
             items.forEach {
                 it.onClick = {
-                    val myUrlToPass = it.url
+                    val entity = viewModel.getItemEntityById(it.id)
                     //startActivity() TODO start activity passing url
-                    Log.d("MY_TAG", myUrlToPass)
+                    Log.d("MY_TAG", entity.toString())
                 }
             }
             setupNewItems(items)
@@ -89,9 +92,9 @@ class CatalogueActivity : BaseActivity() {
         viewModel.onLocationResult().observeNotNull(this) { items ->
             items.forEach {
                 it.onClick = {
-                    val myUrlToPass = it.url
+                    val entity = viewModel.getItemEntityById(it.id)
                     //startActivity() TODO start activity passing url
-                    Log.d("MY_TAG", myUrlToPass)
+                    Log.d("MY_TAG", entity.toString())
                 }
             }
             setupNewItems(items)
@@ -100,9 +103,9 @@ class CatalogueActivity : BaseActivity() {
         viewModel.onEpisodeResult().observeNotNull(this) { items ->
             items.forEach {
                 it.onClick = {
-                    val myUrlToPass = it.url
+                    val entity = viewModel.getItemEntityById(it.id)
                     //startActivity() TODO start activity passing url
-                    Log.d("MY_TAG", myUrlToPass)
+                    Log.d("MY_TAG", entity.toString())
                 }
             }
             setupNewItems(items)
@@ -123,7 +126,7 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun loadItems(page: Int) {
-        viewModel.loadMoreItems(page, searchInput, selectedType)
+        viewModel.loadMoreItems(page, searchInput)
     }
 
     private fun showLoadingNewItems() {
