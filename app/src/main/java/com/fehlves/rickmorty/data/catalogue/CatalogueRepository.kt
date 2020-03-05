@@ -1,8 +1,5 @@
 package com.fehlves.rickmorty.data.catalogue
 
-import com.fehlves.rickmorty.catalogue.model.CharacterCardView
-import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
-import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseResult
 
 interface CatalogueRepository {
@@ -10,17 +7,17 @@ interface CatalogueRepository {
     suspend fun getCharacters(
         pageNumber: Int,
         characterName: String
-    ): BaseResult<List<CharacterCardView>>
+    ): BaseResult<CharacterResultEntity>
 
     suspend fun getLocations(
         pageNumber: Int,
         locationName: String
-    ): BaseResult<List<LocationCardView>>
+    ): BaseResult<LocationResultEntity>
 
     suspend fun getEpisodes(
         pageNumber: Int,
         episodeName: String,
         episode: String
-    ): BaseResult<List<EpisodeCardView>>
+    ): BaseResult<EpisodeResultEntity>
 
 }

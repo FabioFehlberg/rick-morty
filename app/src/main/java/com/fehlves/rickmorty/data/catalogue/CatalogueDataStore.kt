@@ -14,11 +14,11 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
     override suspend fun getCharacters(
         pageNumber: Int,
         characterName: String
-    ): BaseResult<List<CharacterCardView>> {
+    ): BaseResult<CharacterResultEntity> {
         return try {
-            val result = catalogueApi.getCharacters(pageNumber, characterName).results.map {
+            val result = catalogueApi.getCharacters(pageNumber, characterName)/*.results.map {
                 it.toCharacterCardView()
-            }
+            }*/
             BaseResult.Success(result)
         } catch (ex: Exception) {
             BaseResult.Error(ex)
@@ -28,11 +28,11 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
     override suspend fun getLocations(
         pageNumber: Int,
         locationName: String
-    ): BaseResult<List<LocationCardView>> {
+    ): BaseResult<LocationResultEntity> {
         return try {
-            val result = catalogueApi.getLocations(pageNumber, locationName).results.map {
+            val result = catalogueApi.getLocations(pageNumber, locationName)/*.results.map {
                 it.toLocationCardView()
-            }
+            }*/
             BaseResult.Success(result)
         } catch (ex: Exception) {
             BaseResult.Error(ex)
@@ -43,11 +43,11 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         pageNumber: Int,
         episodeName: String,
         episode: String
-    ): BaseResult<List<EpisodeCardView>> {
+    ): BaseResult<EpisodeResultEntity> {
         return try {
-            val result = catalogueApi.getEpisodes(pageNumber, episodeName, episode).results.map {
+            val result = catalogueApi.getEpisodes(pageNumber, episodeName, episode)/*.results.map {
                 it.toEpisodeCardView()
-            }
+            }*/
             BaseResult.Success(result)
         } catch (ex: Exception) {
             BaseResult.Error(ex)

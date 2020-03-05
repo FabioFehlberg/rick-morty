@@ -12,6 +12,9 @@ import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
+import com.fehlves.rickmorty.data.toCharacterCardView
+import com.fehlves.rickmorty.data.toEpisodeCardView
+import com.fehlves.rickmorty.data.toLocationCardView
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -63,7 +66,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onCharacterResult.postValue(result.data)
+                    onCharacterResult.postValue(result.data.results.map { it.toCharacterCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
@@ -95,7 +98,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onLocationResult.postValue(result.data)
+                    onLocationResult.postValue(result.data.results.map { it.toLocationCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
@@ -128,7 +131,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
                         "MY_LOG",
                         "deu certo uai"
                     )
-                    onEpisodeResult.postValue(result.data)
+                    onEpisodeResult.postValue(result.data.results.map { it.toEpisodeCardView() })
                 }
                 is BaseResult.Error -> Log.d(
                     "MY_LOG",
