@@ -43,8 +43,8 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : 
         itemsEntity.clear()
     }
 
-    fun getItemEntityById(id: Int) {
-        itemsEntity.find { it.id == id }
+    fun getItemEntityById(id: Int): BaseEntity? {
+        return itemsEntity.find { it.id == id }
     }
 
     fun loadMoreItems(page: Int, searchInput: String) {
