@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGreen"
+    tools:context=".detail.character.CharacterDetailActivity">
+
+    <ImageView
+        android:id="@+id/ivCharacterDetail"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        android:contentDescription="@string/search_icon_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCharacterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/material_typography_headline"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/ivCharacterDetail"
+        app:layout_constraintEnd_toEndOf="@id/ivCharacterDetail"
+        app:layout_constraintTop_toBottomOf="@id/ivCharacterDetail"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        tools:text="Character Name"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCharacterName"
+        android:layout_marginStart="@dimen/margin_padding_medium"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        tools:text="Status: Alive"/>
+
+    <TextView
+        android:id="@+id/tvSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStatus"
+        android:layout_marginStart="@dimen/margin_padding_medium"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        tools:text="Species: Human"/>
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSpecies"
+        android:layout_marginStart="@dimen/margin_padding_medium"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        tools:text="Type: ?"/>
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvType"
+        android:layout_marginStart="@dimen/margin_padding_medium"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        tools:text="Gender: Sexist"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCatalogue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

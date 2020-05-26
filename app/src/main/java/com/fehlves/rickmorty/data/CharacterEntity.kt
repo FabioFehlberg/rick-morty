@@ -1,8 +1,12 @@
 package com.fehlves.rickmorty.data
 
+import android.os.Parcelable
 import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.common.BaseEntity
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class CharacterEntity(
     @SerializedName("created")
     val created: String,
@@ -11,7 +15,7 @@ data class CharacterEntity(
     @SerializedName("gender")
     val gender: String,
     @SerializedName("id")
-    val id: Int,
+    override val id: Int,
     @SerializedName("image")
     val image: String,
     @SerializedName("location")
@@ -28,21 +32,23 @@ data class CharacterEntity(
     val type: String,
     @SerializedName("url")
     val url: String
-)
+) : BaseEntity(), Parcelable
 
+@Parcelize
 data class Location(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-)
+): Parcelable
 
+@Parcelize
 data class Origin(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")
     val url: String
-)
+): Parcelable
 
 fun CharacterEntity.toCharacterCardView(): CharacterCardView {
     return CharacterCardView(
@@ -51,7 +57,6 @@ fun CharacterEntity.toCharacterCardView(): CharacterCardView {
         specie = species,
         gender = gender,
         status = status,
-        image = image,
-        url = url
+        image = image
     )
 }

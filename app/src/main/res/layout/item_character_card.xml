@@ -41,8 +41,10 @@
             android:textColor="@color/colorYellow"
             android:textSize="@dimen/material_typography_headline"
             android:textStyle="bold"
+            android:maxLines="2"
             app:layout_constraintStart_toEndOf="@+id/ivCharacter"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             tools:text="Rick Sanchez" />
 
         <TextView
@@ -76,6 +78,7 @@
             tools:text="Status: Alive" />
 
         <ImageView
+            android:id="@+id/ivCharacterMoreInfo"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:contentDescription="@string/arrow_next_description"

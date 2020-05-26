@@ -1,8 +1,10 @@
 package com.fehlves.rickmorty.common
 
 import com.fehlves.rickmorty.catalogue.CatalogueViewModel
-import com.fehlves.rickmorty.data.CatalogueApi
-import com.fehlves.rickmorty.data.CatalogueDataStore
+import com.fehlves.rickmorty.data.catalogue.CatalogueApi
+import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
+import com.fehlves.rickmorty.data.detail.DetailApi
+import com.fehlves.rickmorty.data.detail.DetailDataStore
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -24,12 +26,30 @@ val repositoryModule = module {
     }
 }
 
+val detailRepositoryModule = module {
+    single {
+        DetailDataStore(get())
+    }
+}
+
 val apiModule = module {
-    fun provideUseApi(retrofit: Retrofit): CatalogueApi {
+    fun provideCatalogueApi(retrofit: Retrofit): CatalogueApi {
         return retrofit.create(CatalogueApi::class.java)
     }
 
-    single { provideUseApi(get()) }
+    single {
+        provideCatalogueApi(get())
+    }
+}
+
+val detailApiModule = module {
+    fun provideDetailApi(retrofit: Retrofit): DetailApi {
+        return retrofit.create(DetailApi::class.java)
+    }
+
+    single {
+        provideDetailApi(get())
+    }
 }
 
 val retrofitModule = module {
