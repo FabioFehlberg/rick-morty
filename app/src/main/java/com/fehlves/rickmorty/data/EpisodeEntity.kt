@@ -8,23 +8,16 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class EpisodeEntity(
-    @SerializedName("episode")
     val episode: String,
-    @SerializedName("id")
     override val id: Int,
     @SerializedName("air_date")
     val airDate: String,
-    @SerializedName("name")
     val name: String,
-    @SerializedName("characters")
     val characters: List<String>,
-    @SerializedName("type")
     val type: String,
-    @SerializedName("created")
     val created: String,
-    @SerializedName("url")
     val url: String
-): BaseEntity(), Parcelable
+) : BaseEntity(), Parcelable
 
 fun EpisodeEntity.toEpisodeCardView(): EpisodeCardView {
     return EpisodeCardView(
