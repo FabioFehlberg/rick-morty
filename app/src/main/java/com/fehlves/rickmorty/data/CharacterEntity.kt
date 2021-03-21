@@ -12,9 +12,9 @@ data class CharacterEntity(
     val gender: String,
     override val id: Int,
     val image: String,
-    val location: Location,
+    val location: NameUrl,
     val name: String,
-    val origin: Origin,
+    val origin: NameUrl,
     val species: String,
     val status: String,
     val type: String,
@@ -22,13 +22,7 @@ data class CharacterEntity(
 ) : BaseEntity(), Parcelable
 
 @Parcelize
-data class Location(
-    val name: String,
-    val url: String
-) : Parcelable
-
-@Parcelize
-data class Origin(
+data class NameUrl(
     val name: String,
     val url: String
 ) : Parcelable
