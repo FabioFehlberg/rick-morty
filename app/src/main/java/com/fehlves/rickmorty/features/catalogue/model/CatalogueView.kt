@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.catalogue.model
+package com.fehlves.rickmorty.features.catalogue.model
 
 import com.fehlves.rickmorty.common.BaseView
 

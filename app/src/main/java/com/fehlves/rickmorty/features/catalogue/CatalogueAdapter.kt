@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.catalogue
+package com.fehlves.rickmorty.features.catalogue
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import com.airbnb.lottie.LottieDrawable.INFINITE
-import com.airbnb.lottie.LottieDrawable.REVERSE
+import com.airbnb.lottie.LottieDrawable
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.catalogue.model.*
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
@@ -19,6 +17,7 @@ import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
 import com.fehlves.rickmorty.databinding.*
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
+import com.fehlves.rickmorty.features.catalogue.model.*
 
 class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBACK) {
 
@@ -130,8 +129,8 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         override fun bind(item: BaseView) {
             with((binding as ItemLoadingCardBinding).laLoading) {
                 setAnimation("loading.json")
-                repeatMode = REVERSE
-                repeatCount = INFINITE
+                repeatMode = LottieDrawable.REVERSE
+                repeatCount = LottieDrawable.INFINITE
                 playAnimation()
             }
         }

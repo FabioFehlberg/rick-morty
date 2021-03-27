@@ -4,7 +4,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import com.fehlves.rickmorty.main.MainActivity
+import com.fehlves.rickmorty.features.main.MainActivity
 
 
 class MainActivityRobot {

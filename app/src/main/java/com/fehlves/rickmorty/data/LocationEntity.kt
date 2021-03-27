@@ -1,9 +1,9 @@
 package com.fehlves.rickmorty.data
 
 import android.os.Parcelable
-import com.fehlves.rickmorty.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseEntity
-import kotlinx.android.parcel.Parcelize
+import com.fehlves.rickmorty.features.catalogue.model.LocationCardView
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LocationEntity(

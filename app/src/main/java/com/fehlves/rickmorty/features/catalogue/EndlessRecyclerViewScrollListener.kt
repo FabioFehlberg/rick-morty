@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.catalogue
+package com.fehlves.rickmorty.features.catalogue
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager

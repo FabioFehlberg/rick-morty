@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.detail.character
+package com.fehlves.rickmorty.features.detail.character
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.databinding.ActivityCharacterDetailBinding
-import com.fehlves.rickmorty.detail.DetailViewModel
+import com.fehlves.rickmorty.features.detail.DetailViewModel
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import org.koin.androidx.viewmodel.ext.android.viewModel

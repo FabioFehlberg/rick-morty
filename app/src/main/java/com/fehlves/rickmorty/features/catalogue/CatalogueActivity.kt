@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.catalogue
+package com.fehlves.rickmorty.features.catalogue
 
 import android.content.Context
 import android.content.Intent
@@ -7,15 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fehlves.rickmorty.catalogue.model.CatalogueView
-import com.fehlves.rickmorty.catalogue.model.LoadingCardView
-import com.fehlves.rickmorty.catalogue.model.SearchView
+import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
+import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
+import com.fehlves.rickmorty.features.catalogue.model.SearchView
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
 import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
-import com.fehlves.rickmorty.detail.character.CharacterDetailActivity
+import com.fehlves.rickmorty.features.detail.character.CharacterDetailActivity
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel

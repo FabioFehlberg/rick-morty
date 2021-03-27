@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".main.MainActivity">
+        <activity android:name="com.fehlves.rickmorty.features.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".catalogue.CatalogueActivity" />
-        <activity android:name=".detail.character.CharacterDetailActivity" />
+        <activity android:name="com.fehlves.rickmorty.features.catalogue.CatalogueActivity" />
+        <activity android:name="com.fehlves.rickmorty.features.detail.character.CharacterDetailActivity" />
     </application>
 
 </manifest>

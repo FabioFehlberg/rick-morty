@@ -1,10 +1,10 @@
 package com.fehlves.rickmorty.data
 
 import android.os.Parcelable
-import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
 import com.fehlves.rickmorty.common.BaseEntity
+import com.fehlves.rickmorty.features.catalogue.model.EpisodeCardView
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class EpisodeEntity(

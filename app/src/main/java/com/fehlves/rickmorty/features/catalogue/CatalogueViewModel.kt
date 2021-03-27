@@ -1,11 +1,11 @@
-package com.fehlves.rickmorty.catalogue
+package com.fehlves.rickmorty.features.catalogue
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fehlves.rickmorty.catalogue.model.CharacterCardView
-import com.fehlves.rickmorty.catalogue.model.EpisodeCardView
-import com.fehlves.rickmorty.catalogue.model.LocationCardView
+import com.fehlves.rickmorty.features.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.features.catalogue.model.EpisodeCardView
+import com.fehlves.rickmorty.features.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseEntity
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.common.BaseViewModel

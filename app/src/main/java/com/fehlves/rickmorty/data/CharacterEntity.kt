@@ -1,7 +1,7 @@
 package com.fehlves.rickmorty.data
 
 import android.os.Parcelable
-import com.fehlves.rickmorty.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.features.catalogue.model.CharacterCardView
 import com.fehlves.rickmorty.common.BaseEntity
 import kotlinx.parcelize.Parcelize
 

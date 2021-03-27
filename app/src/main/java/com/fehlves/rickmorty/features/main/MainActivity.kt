@@ -1,17 +1,17 @@
-package com.fehlves.rickmorty.main
+package com.fehlves.rickmorty.features.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
-import com.fehlves.rickmorty.catalogue.CatalogueActivity
+import com.fehlves.rickmorty.features.catalogue.CatalogueActivity
 import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.databinding.ActivityMainBinding
-import com.fehlves.rickmorty.main.model.CategoryView
-import com.fehlves.rickmorty.main.model.TitleView
+import com.fehlves.rickmorty.features.main.model.CategoryView
+import com.fehlves.rickmorty.features.main.model.TitleView
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 

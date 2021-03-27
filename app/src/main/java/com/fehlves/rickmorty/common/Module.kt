@@ -1,6 +1,6 @@
 package com.fehlves.rickmorty.common
 
-import com.fehlves.rickmorty.catalogue.CatalogueViewModel
+import com.fehlves.rickmorty.features.catalogue.CatalogueViewModel
 import com.fehlves.rickmorty.data.catalogue.CatalogueApi
 import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
 import com.fehlves.rickmorty.data.detail.DetailApi

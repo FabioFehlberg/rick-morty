@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.main
+package com.fehlves.rickmorty.features.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,8 +10,8 @@ import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.databinding.ItemMainCardBinding
 import com.fehlves.rickmorty.databinding.ItemMainTitleBinding
 import com.fehlves.rickmorty.extensions.getDrawableCompat
-import com.fehlves.rickmorty.main.model.CategoryView
-import com.fehlves.rickmorty.main.model.TitleView
+import com.fehlves.rickmorty.features.main.model.CategoryView
+import com.fehlves.rickmorty.features.main.model.TitleView
 
 class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
 

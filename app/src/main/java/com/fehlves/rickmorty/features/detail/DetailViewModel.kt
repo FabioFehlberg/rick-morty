@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty.detail
+package com.fehlves.rickmorty.features.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
