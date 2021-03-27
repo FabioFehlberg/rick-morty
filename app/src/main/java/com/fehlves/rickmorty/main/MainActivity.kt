@@ -1,6 +1,7 @@
 package com.fehlves.rickmorty.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.CatalogueActivity
@@ -8,13 +9,15 @@ import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
+import com.fehlves.rickmorty.databinding.ActivityMainBinding
 import com.fehlves.rickmorty.main.model.CategoryView
 import com.fehlves.rickmorty.main.model.TitleView
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    override fun getContentLayoutId() = R.layout.activity_main
+    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding = {
+        ActivityMainBinding.inflate(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +57,9 @@ class MainActivity : BaseActivity() {
 
         val listOfAdapters = listOf(title, categoryCharacter, categoryLocation, categoryEpisode)
 
-        rvMain.layoutManager = LinearLayoutManager(this)
-        rvMain.adapter = MainAdapter().apply { submitList(listOfAdapters) }
+        binding.rvMain.also {
+            it.layoutManager = LinearLayoutManager(this)
+            it.adapter = MainAdapter().apply { submitList(listOfAdapters) }
+        }
     }
 }

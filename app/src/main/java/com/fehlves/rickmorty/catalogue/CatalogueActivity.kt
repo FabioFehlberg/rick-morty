@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.catalogue.model.SearchView
@@ -14,13 +14,17 @@ import com.fehlves.rickmorty.common.BaseActivity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
+import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
 import com.fehlves.rickmorty.detail.character.CharacterDetailActivity
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
-import kotlinx.android.synthetic.main.activity_catalogue.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CatalogueActivity : BaseActivity() {
+class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCatalogueBinding = {
+        ActivityCatalogueBinding.inflate(it)
+    }
 
     private val selectedType by extra<Int>(ARG_SELECTED_TYPE)
 
@@ -35,13 +39,11 @@ class CatalogueActivity : BaseActivity() {
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                rvCatalogue.removeOnScrollListener(this)
+                binding.rvCatalogue.removeOnScrollListener(this)
                 loadItems(page)
             }
         }
     }
-
-    override fun getContentLayoutId() = R.layout.activity_catalogue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,19 +68,21 @@ class CatalogueActivity : BaseActivity() {
     }
 
     private fun setupList() {
-        rvCatalogue.layoutManager = linearLayoutManager
-        rvCatalogue.adapter = CatalogueAdapter().apply { submitList(itemsList) }
-        rvCatalogue.addOnScrollListener(endlessScrollListener)
+        binding.rvCatalogue.apply {
+            layoutManager = linearLayoutManager
+            adapter = CatalogueAdapter().apply { submitList(itemsList) }
+            addOnScrollListener(endlessScrollListener)
+        }
     }
 
     private fun resetList() {
-        rvCatalogue.removeOnScrollListener(endlessScrollListener)
+        binding.rvCatalogue.removeOnScrollListener(endlessScrollListener)
         endlessScrollListener.resetState()
         val searchView = itemsList.first()
         viewModel.resetListOfItems()
         itemsList.clear()
         itemsList += searchView
-        rvCatalogue.addOnScrollListener(endlessScrollListener)
+        binding.rvCatalogue.addOnScrollListener(endlessScrollListener)
     }
 
     private fun setupObservables() {
@@ -130,8 +134,10 @@ class CatalogueActivity : BaseActivity() {
 
     private fun setupNewItems(items: List<CatalogueView>) {
         itemsList += items
-        rvCatalogue.adapter?.notifyDataSetChanged()
-        rvCatalogue.addOnScrollListener(endlessScrollListener)
+        binding.rvCatalogue.apply {
+            adapter?.notifyDataSetChanged()
+            addOnScrollListener(endlessScrollListener)
+        }
     }
 
     private fun loadItems(page: Int) {
@@ -140,13 +146,13 @@ class CatalogueActivity : BaseActivity() {
 
     private fun showLoadingNewItems() {
         itemsList += LoadingCardView()
-        rvCatalogue.adapter?.notifyDataSetChanged()
+        binding.rvCatalogue.adapter?.notifyDataSetChanged()
     }
 
     private fun hideLoadingNewItems() {
         itemsList.find { it.id == Int.MAX_VALUE }?.let {
             itemsList.remove(it)
-            rvCatalogue.adapter?.notifyDataSetChanged()
+            binding.rvCatalogue.adapter?.notifyDataSetChanged()
         }
     }
 

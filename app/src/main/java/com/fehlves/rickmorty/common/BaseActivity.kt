@@ -1,21 +1,28 @@
 package com.fehlves.rickmorty.common
 
 import android.os.Bundle
-import androidx.annotation.LayoutRes
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 
 
-abstract class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
-    @LayoutRes
-    protected abstract fun getContentLayoutId(): Int
+    private var _binding: T? = null
+    abstract val bindingInflater: (LayoutInflater) -> T
+
+    protected val binding: T
+        get() = requireNotNull(_binding)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = bindingInflater.invoke(layoutInflater)
+        setContentView(requireNotNull(_binding).root)
+    }
 
-        if (getContentLayoutId() != 0) {
-            setContentView(getContentLayoutId())
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

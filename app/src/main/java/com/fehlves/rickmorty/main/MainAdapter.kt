@@ -1,17 +1,17 @@
 package com.fehlves.rickmorty.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.fehlves.rickmorty.R
+import androidx.viewbinding.ViewBinding
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
+import com.fehlves.rickmorty.databinding.ItemMainCardBinding
+import com.fehlves.rickmorty.databinding.ItemMainTitleBinding
+import com.fehlves.rickmorty.extensions.getDrawableCompat
 import com.fehlves.rickmorty.main.model.CategoryView
 import com.fehlves.rickmorty.main.model.TitleView
-import kotlinx.android.synthetic.main.item_main_card.view.*
-import kotlinx.android.synthetic.main.item_main_title.view.*
 
 class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
 
@@ -22,14 +22,12 @@ class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TITLE_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_main_title, parent, false)
-                TitleViewHolder(view)
+                val binding = ItemMainTitleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                TitleViewHolder(binding)
             }
             CATEGORY_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_main_card, parent, false)
-                CardViewHolder(view)
+                val binding = ItemMainCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                CardViewHolder(binding)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -43,23 +41,23 @@ class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-    class TitleViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class TitleViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val titleView = item as TitleView
-            with (itemView) {
-                ivLogo.setImageDrawable(context.getDrawable(titleView.icon))
-                ivLogo.contentDescription = context.getString(titleView.imageDescription)
+            with(binding as ItemMainTitleBinding) {
+                ivLogo.setImageDrawable(binding.root.context.getDrawableCompat(titleView.icon))
+                ivLogo.contentDescription = binding.root.context.getString(titleView.imageDescription)
             }
         }
     }
 
-    class CardViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class CardViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val categoryView = item as CategoryView
-            with (itemView) {
-                ivCategory.setImageDrawable(context.getDrawable(categoryView.icon))
-                ivCategory.contentDescription = context.getString(categoryView.imageDescription)
-                tvCategory.text = context.getString(categoryView.text)
+            with(binding as ItemMainCardBinding) {
+                ivCategory.setImageDrawable(binding.root.context.getDrawableCompat(categoryView.icon))
+                ivCategory.contentDescription = binding.root.context.getString(categoryView.imageDescription)
+                tvCategory.text = binding.root.context.getString(categoryView.text)
                 cvCategory.setOnClickListener { categoryView.onClick() }
             }
         }

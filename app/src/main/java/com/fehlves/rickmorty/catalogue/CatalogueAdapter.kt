@@ -1,11 +1,11 @@
 package com.fehlves.rickmorty.catalogue
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.viewbinding.ViewBinding
 import com.airbnb.lottie.LottieDrawable.INFINITE
 import com.airbnb.lottie.LottieDrawable.REVERSE
 import com.fehlves.rickmorty.R
@@ -17,12 +17,8 @@ import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOADING_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
+import com.fehlves.rickmorty.databinding.*
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
-import kotlinx.android.synthetic.main.item_catalogue_search.view.*
-import kotlinx.android.synthetic.main.item_character_card.view.*
-import kotlinx.android.synthetic.main.item_episode_card.view.*
-import kotlinx.android.synthetic.main.item_loading_card.view.*
-import kotlinx.android.synthetic.main.item_location_card.view.*
 
 class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBACK) {
 
@@ -33,29 +29,24 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             SEARCH_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_catalogue_search, parent, false)
-                SearchViewHolder(view)
+                val binding = ItemCatalogueSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                SearchViewHolder(binding)
             }
             CHARACTER_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_character_card, parent, false)
-                CharacterViewHolder(view)
+                val binding = ItemCharacterCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                CharacterViewHolder(binding)
             }
             LOCATION_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_location_card, parent, false)
-                LocationViewHolder(view)
+                val binding = ItemLocationCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LocationViewHolder(binding)
             }
             EPISODE_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_episode_card, parent, false)
-                EpisodeViewHolder(view)
+                val binding = ItemEpisodeCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                EpisodeViewHolder(binding)
             }
             LOADING_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_loading_card, parent, false)
-                LoadingViewHolder(view)
+                val binding = ItemLoadingCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                LoadingViewHolder(binding)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -72,10 +63,10 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class SearchViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class SearchViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             if (item is SearchView) {
-                with(itemView) {
+                with(binding as ItemCatalogueSearchBinding) {
                     ivSearch.setOnClickListener { item.onSearchClick(etSearch.text.toString()) }
                     etSearch.setOnEditorActionListener { _, actionId, _ ->
                         if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -87,9 +78,9 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                     }
 
                     tiSearch.hint = when (item.type) {
-                        CHARACTER_TYPE -> context.getString(R.string.catalogue_character_search_hint)
-                        LOCATION_TYPE -> context.getString(R.string.catalogue_location_search_hint)
-                        EPISODE_TYPE -> context.getString(R.string.catalogue_episode_search_hint)
+                        CHARACTER_TYPE -> itemView.context.getString(R.string.catalogue_character_search_hint)
+                        LOCATION_TYPE -> itemView.context.getString(R.string.catalogue_location_search_hint)
+                        EPISODE_TYPE -> itemView.context.getString(R.string.catalogue_episode_search_hint)
                         else -> throw IllegalArgumentException("Invalid view type")
                     }
                 }
@@ -97,52 +88,47 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class CharacterViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class CharacterViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val characterCardView = item as CharacterCardView
-            with(itemView) {
+            with(binding as ItemCharacterCardBinding) {
                 tvName.text = characterCardView.name
-                tvGender.text =
-                    context.getString(R.string.character_card_gender, characterCardView.gender)
-                tvSpecies.text =
-                    context.getString(R.string.character_card_species, characterCardView.specie)
-                tvStatus.text =
-                    context.getString(R.string.character_card_status, characterCardView.status)
+                tvGender.text = itemView.context.getString(R.string.character_card_gender, characterCardView.gender)
+                tvSpecies.text = itemView.context.getString(R.string.character_card_species, characterCardView.specie)
+                tvStatus.text = itemView.context.getString(R.string.character_card_status, characterCardView.status)
                 ivCharacter.loadImageFromUrl(characterCardView.image)
                 cvCharacterCard.setOnClickListener { characterCardView.onClick?.invoke() }
             }
         }
     }
 
-    class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class LocationViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val locationCardView = item as LocationCardView
-            with(itemView) {
+            with(binding as ItemLocationCardBinding) {
                 tvLocationName.text = locationCardView.name
-                tvType.text = context.getString(R.string.location_card_type, locationCardView.type)
-                tvDimension.text =
-                    context.getString(R.string.location_card_dimension, locationCardView.dimension)
+                tvType.text = itemView.context.getString(R.string.location_card_type, locationCardView.type)
+                tvDimension.text = itemView.context.getString(R.string.location_card_dimension, locationCardView.dimension)
                 cvLocation.setOnClickListener { locationCardView.onClick?.invoke() }
             }
         }
     }
 
-    class EpisodeViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class EpisodeViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val episodeCardView = item as EpisodeCardView
-            with(itemView) {
+            with(binding as ItemEpisodeCardBinding) {
                 tvEpisodeName.text = episodeCardView.name
                 tvEpisode.text = episodeCardView.episode
-                tvAirDate.text =
-                    context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
+                tvAirDate.text = itemView.context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
                 cvEpisode.setOnClickListener { episodeCardView.onClick?.invoke() }
             }
         }
     }
 
-    class LoadingViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class LoadingViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
-            with(itemView.laLoading) {
+            with((binding as ItemLoadingCardBinding).laLoading) {
                 setAnimation("loading.json")
                 repeatMode = REVERSE
                 repeatCount = INFINITE
