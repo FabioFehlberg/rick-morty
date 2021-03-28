@@ -14,6 +14,7 @@ import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
 import com.fehlves.rickmorty.databinding.ActivityCharacterDetailBinding
 import com.fehlves.rickmorty.extensions.extra
+import com.fehlves.rickmorty.extensions.formatDate
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import com.fehlves.rickmorty.extensions.observeNullable
 import com.fehlves.rickmorty.features.detail.model.BaseDetailInfoView
@@ -76,7 +77,7 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 tvName.text = it.name
 
                 val characterList = mutableListOf<BaseDetailInfoView>().apply {
-                    add(DetailInfoView(getString(R.string.character_detail_creation_date, it.created)))
+                    add(DetailInfoView(getString(R.string.character_detail_creation_date, it.created.formatDate())))
                     add(DetailInfoView(getString(R.string.character_detail_gender, it.gender)))
                     add(DetailInfoView(getString(R.string.character_detail_location, it.location.name)))
                     add(DetailInfoView(getString(R.string.character_detail_origin, it.origin.name)))
@@ -127,7 +128,7 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 tvName.text = it.name
 
                 val characterList = mutableListOf<BaseDetailInfoView>().apply {
-                    add(DetailInfoView(getString(R.string.location_detail_creation_date, it.created)))
+                    add(DetailInfoView(getString(R.string.location_detail_creation_date, it.created.formatDate())))
                     add(DetailInfoView(getString(R.string.location_detail_dimension, it.dimension)))
                     add(DetailInfoView(getString(R.string.location_detail_type, it.type)))
                     add(DetailInfoView(getString(R.string.location_detail_resident_list), isLoading = true))
@@ -169,7 +170,7 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 tvName.text = it.name
 
                 val characterList = mutableListOf<BaseDetailInfoView>().apply {
-                    add(DetailInfoView(getString(R.string.episode_detail_creation_date, it.created)))
+                    add(DetailInfoView(getString(R.string.episode_detail_creation_date, it.created.formatDate())))
                     add(DetailInfoView(getString(R.string.episode_detail_air_date, it.airDate)))
                     add(DetailInfoView(getString(R.string.episode_detail_episode, it.episode)))
                     add(DetailInfoView(getString(R.string.episode_detail_character_list), isLoading = true))
