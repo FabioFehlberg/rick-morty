@@ -12,7 +12,11 @@ class RickMortyApp : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@RickMortyApp)
-            modules(listOf(repositoryModule, viewModelModule, retrofitModule, apiModule, detailRepositoryModule, detailApiModule))
+            modules(mutableListOf(repositoryModule, retrofitModule, apiModule, detailRepositoryModule, detailApiModule).apply {
+                addAll(
+                    viewModelModule
+                )
+            })
         }
     }
 }
