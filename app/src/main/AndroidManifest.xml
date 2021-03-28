@@ -23,7 +23,7 @@
         </activity>
 
         <activity android:name="com.fehlves.rickmorty.features.catalogue.CatalogueActivity" />
-        <activity android:name="com.fehlves.rickmorty.features.detail.character.CharacterDetailActivity" />
+        <activity android:name="com.fehlves.rickmorty.features.detail.DetailInfoActivity" />
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
 import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
-import com.fehlves.rickmorty.features.detail.character.CharacterDetailActivity
+import com.fehlves.rickmorty.features.detail.DetailInfoActivity
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -91,7 +91,7 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
                 item.onClick = {
                     val entity = viewModel.getItemEntityById(item.id) as? CharacterEntity
                     entity?.let {
-                        startActivity(CharacterDetailActivity.newInstance(this, it))
+                        startActivity(DetailInfoActivity.newInstance(this, it))
                     }
                 }
             }
