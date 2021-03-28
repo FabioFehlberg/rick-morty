@@ -1,13 +1,9 @@
 package com.fehlves.rickmorty.features.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.common.BaseViewModel
-import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
-import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
-import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
@@ -18,94 +14,49 @@ import kotlinx.coroutines.withContext
 
 class DetailViewModel(private val detailRepository: DetailDataStore) : BaseViewModel() {
 
-    private val onCharacterResult = MutableLiveData<CharacterEntity>()
-    private val onLocationResult = MutableLiveData<LocationEntity>()
-    private val onEpisodeResult = MutableLiveData<EpisodeEntity>()
+    private val onCharacterListResult = MutableLiveData<List<CharacterEntity>?>()
+    private val onLocationListResult = MutableLiveData<List<LocationEntity>?>()
+    private val onEpisodeListResult = MutableLiveData<List<EpisodeEntity>?>()
 
-    fun onCharacterResult(): LiveData<CharacterEntity> = onCharacterResult
-    fun onLocationResult(): LiveData<LocationEntity> = onLocationResult
-    fun onEpisodeResult(): LiveData<EpisodeEntity> = onEpisodeResult
+    fun onCharacterListResult(): LiveData<List<CharacterEntity>?> = onCharacterListResult
+    fun onLocationListResult(): LiveData<List<LocationEntity>?> = onLocationListResult
+    fun onEpisodeListResult(): LiveData<List<EpisodeEntity>?> = onEpisodeListResult
 
-    fun loadDetails(id: Int, selectedType: Int) {
-        when (selectedType) {
-            CHARACTER_TYPE -> loadCharacter(id)
-            LOCATION_TYPE -> loadLocations(id)
-            EPISODE_TYPE -> loadEpisodes(id)
-            else -> throw IllegalStateException("Incorrect type")
-        }
-    }
-
-    private fun loadCharacter(id: Int) {
+    fun loadCharacterList(ids: String) {
 
         launch {
-
-            val result =
-                withContext(Dispatchers.IO) {
-                    detailRepository.getCharacter(id)
-                }
-
+            val result = withContext(Dispatchers.IO) { detailRepository.getCharacterList(ids) }
+            result.logResult()
             when (result) {
-                is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
-                    onCharacterResult.postValue(result.data)
-                }
-                is BaseResult.Error -> Log.d(
-                    "MY_LOG",
-                    result.exception.message ?: "message is null"
-                )
+                is BaseResult.Success -> onCharacterListResult.postValue(result.data)
+                is BaseResult.Error -> onCharacterListResult.postValue(null)
             }
         }
     }
 
-    private fun loadLocations(id: Int) {
+    fun loadLocationsList(ids: String) {
 
         launch {
-
-            val result =
-                withContext(Dispatchers.IO) {
-                    detailRepository.getLocation(id)
-                }
-
+            val result = withContext(Dispatchers.IO) { detailRepository.getLocationList(ids) }
+            result.logResult()
             when (result) {
-                is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
-                    onLocationResult.postValue(result.data)
-                }
-                is BaseResult.Error -> Log.d(
-                    "MY_LOG",
-                    result.exception.message ?: "message is null"
-                )
+                is BaseResult.Success -> onLocationListResult.postValue(result.data)
+                is BaseResult.Error -> onLocationListResult.postValue(null)
             }
         }
     }
 
-    private fun loadEpisodes(id: Int) {
+    fun loadEpisodesList(ids: String) {
 
         launch {
 
-            val result =
-                withContext(Dispatchers.IO) {
-                    detailRepository.getEpisode(id)
-                }
-
+            val result = withContext(Dispatchers.IO) {
+                detailRepository.getEpisodeList(ids)
+            }
+            result.logResult()
             when (result) {
-                is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
-                    onEpisodeResult.postValue(result.data)
-                }
-                is BaseResult.Error -> Log.d(
-                    "MY_LOG",
-                    result.exception.message ?: "message is null"
-                )
+                is BaseResult.Success -> onEpisodeListResult.postValue(result.data)
+                is BaseResult.Error -> onEpisodeListResult.postValue(null)
             }
         }
     }

@@ -9,12 +9,12 @@ import retrofit2.http.Path
 interface DetailApi {
 
     @GET("character/{id}")
-    suspend fun getCharacter(@Path("id") pageNumber: Int): CharacterEntity
+    suspend fun getCharacterList(@Path("id") idList: String): List<CharacterEntity>
 
     @GET("location/{id}")
-    suspend fun getLocation(@Path("id") pageNumber: Int): LocationEntity
+    suspend fun getLocationList(@Path("id") idList: String): List<LocationEntity>
 
     @GET("episode/{id}")
-    suspend fun getEpisode(@Path("id") pageNumber: Int): EpisodeEntity
+    suspend fun getEpisodeList(@Path("id") idList: String): List<EpisodeEntity>
 
 }
