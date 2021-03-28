@@ -3,24 +3,24 @@ package com.fehlves.rickmorty.features.catalogue
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fehlves.rickmorty.features.catalogue.model.CharacterCardView
-import com.fehlves.rickmorty.features.catalogue.model.EpisodeCardView
-import com.fehlves.rickmorty.features.catalogue.model.LocationCardView
 import com.fehlves.rickmorty.common.BaseEntity
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.common.BaseViewModel
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
-import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
+import com.fehlves.rickmorty.data.catalogue.CatalogueRepository
 import com.fehlves.rickmorty.data.toCharacterCardView
 import com.fehlves.rickmorty.data.toEpisodeCardView
 import com.fehlves.rickmorty.data.toLocationCardView
+import com.fehlves.rickmorty.features.catalogue.model.CharacterCardView
+import com.fehlves.rickmorty.features.catalogue.model.EpisodeCardView
+import com.fehlves.rickmorty.features.catalogue.model.LocationCardView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CatalogueViewModel(private val catalogueRepository: CatalogueDataStore) : BaseViewModel() {
+class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) : BaseViewModel() {
 
     private val itemsEntity = arrayListOf<BaseEntity>()
     private var selectedType = Int.MIN_VALUE
