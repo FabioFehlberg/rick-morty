@@ -127,12 +127,7 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
 
     class LoadingViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
-            with((binding as ItemLoadingCardBinding).laLoading) {
-                setAnimation("loading.json")
-                repeatMode = LottieDrawable.REVERSE
-                repeatCount = LottieDrawable.INFINITE
-                playAnimation()
-            }
+            (binding as ItemLoadingCardBinding).laLoading.repeatCount = LottieDrawable.INFINITE
         }
     }
 
