@@ -62,22 +62,14 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
 
         launch {
 
-            val result =
-                withContext(Dispatchers.IO) {
-                    catalogueRepository.getCharacters(
-                        pageNumber,
-                        characterName
-                    )
-                }
+            val result = withContext(Dispatchers.IO) {
+                catalogueRepository.getCharacters(pageNumber, characterName)
+            }
 
             onShowLoading.postValue(false)
 
             when (result) {
                 is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onCharacterResult.postValue(items.map { it.toCharacterCardView() })
@@ -96,22 +88,14 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
 
         launch {
 
-            val result =
-                withContext(Dispatchers.IO) {
-                    catalogueRepository.getLocations(
-                        pageNumber,
-                        locationName
-                    )
-                }
+            val result = withContext(Dispatchers.IO) {
+                catalogueRepository.getLocations(pageNumber, locationName)
+            }
 
             onShowLoading.postValue(false)
 
             when (result) {
                 is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onLocationResult.postValue(items.map { it.toLocationCardView() })
@@ -130,23 +114,14 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
 
         launch {
 
-            val result =
-                withContext(Dispatchers.IO) {
-                    catalogueRepository.getEpisodes(
-                        pageNumber,
-                        episodeName,
-                        episode
-                    )
-                }
+            val result = withContext(Dispatchers.IO) {
+                catalogueRepository.getEpisodes(pageNumber, episodeName, episode)
+            }
 
             onShowLoading.postValue(false)
 
             when (result) {
                 is BaseResult.Success -> {
-                    Log.d(
-                        "MY_LOG",
-                        "deu certo uai"
-                    )
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onEpisodeResult.postValue(items.map { it.toEpisodeCardView() })
