@@ -13,7 +13,6 @@ data class EpisodeEntity(
     val airDate: String,
     val name: String,
     val characters: List<String>,
-    val type: String,
     val created: String,
     val url: String
 ) : BaseEntity()
