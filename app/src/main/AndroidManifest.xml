@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.fehlves.rickmorty.features.catalogue.CatalogueActivity" />
+        <activity
+            android:name="com.fehlves.rickmorty.features.catalogue.CatalogueActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name="com.fehlves.rickmorty.features.detail.DetailInfoActivity" />
     </application>
 
