@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvCharacterCard"
@@ -36,23 +35,29 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_padding_large"
-            android:textColor="@color/colorYellow"
-            android:textSize="@dimen/material_typography_headline"
-            android:textStyle="bold"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/margin_padding_medium"
+            android:gravity="center_vertical"
             android:maxLines="2"
+            android:textColor="@color/colorYellow"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="@dimen/material_typography_headline"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             app:layout_constraintStart_toEndOf="@+id/ivCharacter"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             tools:text="Rick Sanchez" />
 
         <TextView
             android:id="@+id/tvSpecies"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:maxLines="1"
             android:textColor="@color/colorYellow"
             android:textSize="@dimen/material_typography_body1"
+            app:autoSizeMaxTextSize="@dimen/material_typography_body1"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvName"
             tools:text="Species: Human" />
@@ -60,9 +65,12 @@
         <TextView
             android:id="@+id/tvGender"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:maxLines="1"
             android:textColor="@color/colorYellow"
-            android:textSize="@dimen/material_typography_body1"
+            app:autoSizeMaxTextSize="@dimen/material_typography_body1"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvSpecies"
             tools:text="Gender: unknown" />
@@ -70,9 +78,12 @@
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:maxLines="1"
             android:textColor="@color/colorYellow"
-            android:textSize="@dimen/material_typography_body1"
+            app:autoSizeMaxTextSize="@dimen/material_typography_body1"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@id/ivCharacterMoreInfo"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvGender"
             tools:text="Status: Alive" />
