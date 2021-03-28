@@ -2,7 +2,6 @@ package com.fehlves.rickmorty.features.catalogue
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
@@ -14,8 +13,10 @@ import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOADING_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
-import com.fehlves.rickmorty.common.Constants.Companion.SEARCH_TYPE
-import com.fehlves.rickmorty.databinding.*
+import com.fehlves.rickmorty.databinding.ItemCharacterCardBinding
+import com.fehlves.rickmorty.databinding.ItemEpisodeCardBinding
+import com.fehlves.rickmorty.databinding.ItemLoadingCardBinding
+import com.fehlves.rickmorty.databinding.ItemLocationCardBinding
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import com.fehlves.rickmorty.features.catalogue.model.*
 
@@ -27,10 +28,6 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            SEARCH_TYPE -> {
-                val binding = ItemCatalogueSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                SearchViewHolder(binding)
-            }
             CHARACTER_TYPE -> {
                 val binding = ItemCharacterCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 CharacterViewHolder(binding)
@@ -53,37 +50,11 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is SearchView -> SEARCH_TYPE
             is CharacterCardView -> CHARACTER_TYPE
             is LocationCardView -> LOCATION_TYPE
             is EpisodeCardView -> EPISODE_TYPE
             is LoadingCardView -> LOADING_TYPE
             else -> throw IllegalArgumentException("Invalid type of data at position $position")
-        }
-    }
-
-    class SearchViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
-        override fun bind(item: BaseView) {
-            if (item is SearchView) {
-                with(binding as ItemCatalogueSearchBinding) {
-                    ivSearch.setOnClickListener { item.onSearchClick(etSearch.text.toString()) }
-                    etSearch.setOnEditorActionListener { _, actionId, _ ->
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            item.onSearchClick(etSearch.text.toString())
-                            true
-                        } else {
-                            false
-                        }
-                    }
-
-                    tiSearch.hint = when (item.type) {
-                        CHARACTER_TYPE -> itemView.context.getString(R.string.catalogue_character_search_hint)
-                        LOCATION_TYPE -> itemView.context.getString(R.string.catalogue_location_search_hint)
-                        EPISODE_TYPE -> itemView.context.getString(R.string.catalogue_episode_search_hint)
-                        else -> throw IllegalArgumentException("Invalid view type")
-                    }
-                }
-            }
         }
     }
 

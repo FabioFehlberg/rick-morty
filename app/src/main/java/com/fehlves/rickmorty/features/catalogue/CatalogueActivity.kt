@@ -4,15 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.common.BaseActivity
+import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
-import com.fehlves.rickmorty.features.catalogue.model.SearchView
 import com.fehlves.rickmorty.features.detail.DetailInfoActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,25 +49,48 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setupAppBar(binding.appBarCatalogue.toolbarWidget)
+        setupAppBarAndSearch()
 
         viewModel.setSelectedType(selectedType)
-
-        setupSearchView()
         setupList()
+        showLoadingNewItems()
 
         setupObservables()
     }
 
-    private fun setupSearchView() {
-        val searchView = SearchView(
-            type = selectedType
-        ) {
-            searchInput = it
-            resetList()
+    private fun setupAppBarAndSearch() {
+        with(binding.appBarCatalogue) {
+            setupAppBar(toolbarWidget)
+            clSearchBar.visibility = View.VISIBLE
+            tiSearch.hint = when (selectedType) {
+                CHARACTER_TYPE -> getString(R.string.catalogue_character_search_hint)
+                LOCATION_TYPE -> getString(R.string.catalogue_location_search_hint)
+                else -> getString(R.string.catalogue_episode_search_hint)
+            }
+            ivSearch.setOnClickListener {
+                searchInput = etSearch.text.toString()
+                resetList()
+                loadItems(0)
+                hideSoftKeyboard(etSearch)
+            }
+            etSearch.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    searchInput = etSearch.text.toString()
+                    resetList()
+                    loadItems(0)
+                    hideSoftKeyboard(etSearch)
+                    true
+                } else {
+                    false
+                }
+            }
         }
+        binding.rvCatalogue.requestFocus()
+    }
 
-        itemsList += searchView
+    private fun hideSoftKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun setupList() {
@@ -76,10 +104,8 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
     private fun resetList() {
         binding.rvCatalogue.removeOnScrollListener(endlessScrollListener)
         endlessScrollListener.resetState()
-        val searchView = itemsList.first()
         viewModel.resetListOfItems()
         itemsList.clear()
-        itemsList += searchView
         binding.rvCatalogue.addOnScrollListener(endlessScrollListener)
     }
 
@@ -119,7 +145,7 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
 
     private fun setupNewItems(items: List<CatalogueView>) {
         itemsList += items
-        binding.rvCatalogue.apply {
+        binding.rvCatalogue.run {
             adapter?.notifyDataSetChanged()
             addOnScrollListener(endlessScrollListener)
         }
@@ -135,10 +161,10 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
     }
 
     private fun hideLoadingNewItems() {
-        itemsList.find { it.id == Int.MAX_VALUE }?.let {
+        itemsList.filter { it.id == Int.MAX_VALUE }.forEach {
             itemsList.remove(it)
-            binding.rvCatalogue.adapter?.notifyDataSetChanged()
         }
+        binding.rvCatalogue.adapter?.notifyDataSetChanged()
     }
 
     companion object {
