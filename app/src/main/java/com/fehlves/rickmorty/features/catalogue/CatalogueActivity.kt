@@ -3,21 +3,17 @@ package com.fehlves.rickmorty.features.catalogue
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fehlves.rickmorty.common.BaseActivity
+import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
+import com.fehlves.rickmorty.extensions.extra
+import com.fehlves.rickmorty.extensions.observeNotNull
 import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.features.catalogue.model.SearchView
-import com.fehlves.rickmorty.common.BaseActivity
-import com.fehlves.rickmorty.data.CharacterEntity
-import com.fehlves.rickmorty.data.EpisodeEntity
-import com.fehlves.rickmorty.data.LocationEntity
-import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
 import com.fehlves.rickmorty.features.detail.DetailInfoActivity
-import com.fehlves.rickmorty.extensions.extra
-import com.fehlves.rickmorty.extensions.observeNotNull
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
@@ -89,46 +85,33 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
         viewModel.onCharacterResult().observeNotNull(this) { items ->
             items.forEach { item ->
                 item.onClick = {
-                    val entity = viewModel.getItemEntityById(item.id) as? CharacterEntity
-                    entity?.let {
-                        startActivity(DetailInfoActivity.newInstance(this, it))
-                    }
+                    viewModel.getItemEntityById(item.id)?.let { startActivity(DetailInfoActivity.newInstance(this, it)) }
                 }
             }
             setupNewItems(items)
         }
 
         viewModel.onLocationResult().observeNotNull(this) { items ->
-            items.forEach {
-                it.onClick = {
-                    val entity = viewModel.getItemEntityById(it.id) as? LocationEntity
-                    entity?.let {
-                        //startActivity() TODO start activity passing url
-                        Log.d("MY_TAG", entity.toString())
-                    }
+            items.forEach { item ->
+                item.onClick = {
+                    viewModel.getItemEntityById(item.id)?.let { startActivity(DetailInfoActivity.newInstance(this, it)) }
                 }
             }
             setupNewItems(items)
         }
 
         viewModel.onEpisodeResult().observeNotNull(this) { items ->
-            items.forEach {
-                it.onClick = {
-                    val entity = viewModel.getItemEntityById(it.id) as? EpisodeEntity
-                    entity?.let {
-                        //startActivity() TODO start activity passing url
-                        Log.d("MY_TAG", entity.toString())
-                    }
+            items.forEach { item ->
+                item.onClick = {
+                    viewModel.getItemEntityById(item.id)?.let { startActivity(DetailInfoActivity.newInstance(this, it)) }
                 }
             }
             setupNewItems(items)
         }
 
         viewModel.onShowLoading().observeNotNull(this) { isToShow ->
-            if (isToShow)
-                showLoadingNewItems()
-            else
-                hideLoadingNewItems()
+            if (isToShow) showLoadingNewItems()
+            else hideLoadingNewItems()
         }
     }
 
