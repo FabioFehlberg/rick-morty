@@ -1,5 +1,7 @@
 package com.fehlves.rickmorty.common
 
-abstract class BaseEntity {
+import android.os.Parcelable
+
+abstract class BaseEntity : Parcelable {
     abstract val id: Int
 }

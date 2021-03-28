@@ -19,7 +19,7 @@ data class CharacterEntity(
     val status: String,
     val type: String,
     val url: String
-) : BaseEntity(), Parcelable
+) : BaseEntity()
 
 @Parcelize
 data class NameUrl(

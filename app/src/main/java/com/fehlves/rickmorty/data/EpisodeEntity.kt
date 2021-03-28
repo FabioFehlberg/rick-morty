@@ -1,6 +1,5 @@
 package com.fehlves.rickmorty.data
 
-import android.os.Parcelable
 import com.fehlves.rickmorty.common.BaseEntity
 import com.fehlves.rickmorty.features.catalogue.model.EpisodeCardView
 import com.google.gson.annotations.SerializedName
@@ -17,7 +16,7 @@ data class EpisodeEntity(
     val type: String,
     val created: String,
     val url: String
-) : BaseEntity(), Parcelable
+) : BaseEntity()
 
 fun EpisodeEntity.toEpisodeCardView(): EpisodeCardView {
     return EpisodeCardView(
