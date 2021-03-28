@@ -28,4 +28,23 @@
 
     <string name="character_detail_image_description">Representation of %s</string>
 
+    <string name="character_detail_creation_date">Creation date: %s</string>
+    <string name="character_detail_gender">Gender: %s</string>
+    <string name="character_detail_location">Last known location: %s</string>
+    <string name="character_detail_origin">Origin location: %s</string>
+    <string name="character_detail_species">Species: %s</string>
+    <string name="character_detail_status">Status: %s</string>
+    <string name="character_detail_type">Type: %s</string>
+    <string name="character_detail_episode_list">Episodes:</string>
+
+    <string name="location_detail_creation_date">Creation date: %s</string>
+    <string name="location_detail_dimension">Dimension: %s</string>
+    <string name="location_detail_type">Type: %s</string>
+    <string name="location_detail_resident_list">Residents:</string>
+
+    <string name="episode_detail_creation_date">Creation date: %s</string>
+    <string name="episode_detail_air_date">Air date: %s</string>
+    <string name="episode_detail_episode">Episode: %s</string>
+    <string name="episode_detail_character_list">Characters:</string>
+
 </resources>
