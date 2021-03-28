@@ -12,7 +12,7 @@ import com.fehlves.rickmorty.common.BaseEntity
 import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
-import com.fehlves.rickmorty.databinding.ActivityCharacterDetailBinding
+import com.fehlves.rickmorty.databinding.ActivityDetailInfoBinding
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.formatDate
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
@@ -22,10 +22,10 @@ import com.fehlves.rickmorty.features.detail.model.DetailInfoCardView
 import com.fehlves.rickmorty.features.detail.model.DetailInfoView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
+class DetailInfoActivity : BaseActivity<ActivityDetailInfoBinding>() {
 
-    override val bindingInflater: (LayoutInflater) -> ActivityCharacterDetailBinding = {
-        ActivityCharacterDetailBinding.inflate(it)
+    override val bindingInflater: (LayoutInflater) -> ActivityDetailInfoBinding = {
+        ActivityDetailInfoBinding.inflate(it)
     }
 
     private val viewModel: DetailViewModel by viewModel()
@@ -36,6 +36,8 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setupAppBar(binding.appBarDetailInfo.toolbarWidget)
 
         when (detailEntity) {
             is CharacterEntity -> setupCharacterView(detailEntity as CharacterEntity)
@@ -97,7 +99,6 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
-                nsContent.smoothScrollTo(0, 0)
             }
         }
     }
@@ -143,7 +144,6 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
-                nsContent.smoothScrollTo(0, 0) // todo know why it is going to top
             }
         }
     }
@@ -185,7 +185,6 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
-                nsContent.smoothScrollTo(0, 0)
             }
         }
     }

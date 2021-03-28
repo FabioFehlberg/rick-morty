@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGreen"
+    tools:context=".features.detail.DetailInfoActivity">
+
+    <include
+        android:id="@+id/appBarDetailInfo"
+        layout="@layout/app_bar_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCharacterDetail"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        android:contentDescription="@string/search_icon_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarDetailInfo" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_padding_large"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/material_typography_headline"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivCharacterDetail"
+        tools:text="Character Name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDetailInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        tools:itemCount="3"
+        tools:listitem="@layout/detail_info" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

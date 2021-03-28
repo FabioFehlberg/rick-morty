@@ -44,6 +44,8 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setupAppBar(binding.appBarCatalogue.toolbarWidget)
+
         viewModel.setSelectedType(selectedType)
 
         setupSearchView()
