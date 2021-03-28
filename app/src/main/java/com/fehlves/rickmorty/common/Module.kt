@@ -2,8 +2,10 @@ package com.fehlves.rickmorty.common
 
 import com.fehlves.rickmorty.data.catalogue.CatalogueApi
 import com.fehlves.rickmorty.data.catalogue.CatalogueDataStore
+import com.fehlves.rickmorty.data.catalogue.CatalogueRepository
 import com.fehlves.rickmorty.data.detail.DetailApi
 import com.fehlves.rickmorty.data.detail.DetailDataStore
+import com.fehlves.rickmorty.data.detail.DetailRepository
 import com.fehlves.rickmorty.features.catalogue.CatalogueViewModel
 import com.fehlves.rickmorty.features.detail.DetailViewModel
 import com.google.gson.FieldNamingPolicy
@@ -29,13 +31,13 @@ val viewModelModule = listOf(
 )
 
 val repositoryModule = module {
-    single {
+    factory<CatalogueRepository> {
         CatalogueDataStore(get())
     }
 }
 
 val detailRepositoryModule = module {
-    single {
+    factory<DetailRepository> {
         DetailDataStore(get())
     }
 }
