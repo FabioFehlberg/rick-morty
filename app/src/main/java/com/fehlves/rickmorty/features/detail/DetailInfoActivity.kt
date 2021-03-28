@@ -88,7 +88,11 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 }
 
                 val listOfEpisodes = it.episode.map { it.split("/").last() }
-                if (listOfEpisodes.isNotEmpty()) viewModel.loadEpisodesList(listOfEpisodes.joinToString()) else TODO("add empty state")
+                when (listOfEpisodes.count()) {
+                    0 -> run { } //TODO("add empty state")
+                    1 -> viewModel.loadEpisode(listOfEpisodes.first().toInt())
+                    else -> viewModel.loadEpisodesList(listOfEpisodes.joinToString())
+                }
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
@@ -100,9 +104,10 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
     private fun setCharacterEpisodeList(episodes: List<EpisodeEntity>?) {
         (itemsList.last() as DetailInfoView).isLoading = false
         episodes?.let {
-            if (it.isEmpty()) TODO("add empty state")
-            else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
-        } ?: TODO("add error state")
+            if (it.isEmpty()) {
+                // TODO("add empty state")
+            } else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
+        } // ?: TODO("add error state")
         binding.rvDetailInfo.adapter?.notifyDataSetChanged()
     }
 
@@ -129,7 +134,11 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 }
 
                 val listOfResidents = it.residents.map { it.split("/").last() }
-                if (listOfResidents.isNotEmpty()) viewModel.loadCharacterList(listOfResidents.joinToString()) else TODO("add empty state")
+                when (listOfResidents.count()) {
+                    0 -> run { } //TODO("add empty state")
+                    1 -> viewModel.loadCharacter(listOfResidents.first().toInt())
+                    else -> viewModel.loadCharacterList(listOfResidents.joinToString())
+                }
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
@@ -141,9 +150,10 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
     private fun setResidentsList(characters: List<CharacterEntity>?) {
         (itemsList.last() as DetailInfoView).isLoading = false
         characters?.let {
-            if (it.isEmpty()) TODO("add empty state")
-            else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
-        } ?: TODO("add error state")
+            if (it.isEmpty()) {
+                // TODO("add empty state")
+            } else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
+        } // ?: TODO("add error state")
         binding.rvDetailInfo.adapter?.notifyDataSetChanged()
     }
 
@@ -166,7 +176,11 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
                 }
 
                 val listOfCharacters = it.characters.map { it.split("/").last() }
-                if (listOfCharacters.isNotEmpty()) viewModel.loadCharacterList(listOfCharacters.joinToString()) else TODO("add empty state")
+                when (listOfCharacters.count()) {
+                    0 -> run { } //TODO("add empty state")
+                    1 -> viewModel.loadCharacter(listOfCharacters.first().toInt())
+                    else -> viewModel.loadCharacterList(listOfCharacters.joinToString())
+                }
 
                 itemsList += characterList
                 rvDetailInfo.adapter?.notifyDataSetChanged()
@@ -178,27 +192,24 @@ class DetailInfoActivity : BaseActivity<ActivityCharacterDetailBinding>() {
     private fun setCharactersAppearanceList(characters: List<CharacterEntity>?) {
         (itemsList.last() as DetailInfoView).isLoading = false
         characters?.let {
-            if (it.isEmpty()) TODO("add empty state")
-            else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
-        } ?: TODO("add error state")
+            if (it.isEmpty()) {
+                // TODO("add empty state")
+            } else itemsList += it.map { ep -> ep.toDetailInfoCardView() }
+        } // ?: TODO("add error state")
         binding.rvDetailInfo.adapter?.notifyDataSetChanged()
     }
 
     // endregion
 
-    private fun CharacterEntity.toDetailInfoCardView() = DetailInfoCardView(
-        label = "$episode - $name",
-        iconUrl = image
-    ) {
+    private fun CharacterEntity.toDetailInfoCardView() = DetailInfoCardView(label = name, iconUrl = image) {
         startActivity(newInstance(this@DetailInfoActivity, this))
     }
 
     companion object {
         private const val ARG_DETAIL = "arg_detail"
 
-        fun newInstance(context: Context, entity: BaseEntity) =
-            Intent(context, DetailInfoActivity::class.java).apply {
-                putExtra(ARG_DETAIL, entity)
-            }
+        fun newInstance(context: Context, entity: BaseEntity) = Intent(context, DetailInfoActivity::class.java).apply {
+            putExtra(ARG_DETAIL, entity)
+        }
     }
 }
