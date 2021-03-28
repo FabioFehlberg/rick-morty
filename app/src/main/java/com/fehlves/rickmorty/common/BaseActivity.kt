@@ -38,6 +38,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     protected fun setupAppBar(toolbar: Toolbar) {
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
+            setHomeActionContentDescription(R.string.arrow_back_description)
             setDisplayShowTitleEnabled(false)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_arrow_back)

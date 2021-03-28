@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Rick&amp;Morty</string>
 
+    <string name="arrow_back_description">Arrow indicating to go back on view stack</string>
     <string name="arrow_next_description">Arrow indicating that item has more information</string>
     <string name="search_icon_description">A search icon that is used to trigger search engine</string>
 
