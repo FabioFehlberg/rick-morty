@@ -2,8 +2,11 @@ package com.fehlves.rickmorty.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.viewbinding.ViewBinding
+import com.fehlves.rickmorty.R
 
 
 abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
@@ -23,6 +26,22 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        } else super.onOptionsItemSelected(item)
+    }
+
+    protected fun setupAppBar(toolbar: Toolbar) {
+        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        }
     }
 
 }
