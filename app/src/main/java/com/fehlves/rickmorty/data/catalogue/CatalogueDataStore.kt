@@ -10,13 +10,9 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         characterName: String
     ): BaseResult<CharacterResultEntity> {
         return try {
-            BaseResult.Success(catalogueApi.getCharacters(pageNumber, characterName)).also {
-                it.logResult()
-            }
+            BaseResult.Success(catalogueApi.getCharacters(pageNumber, characterName)).also { it.logResult() }
         } catch (ex: Exception) {
-            BaseResult.Error(ex).also {
-                it.logResult()
-            }
+            BaseResult.Error(ex).also { it.logResult() }
         }
     }
 
@@ -25,13 +21,9 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         locationName: String
     ): BaseResult<LocationResultEntity> {
         return try {
-            BaseResult.Success(catalogueApi.getLocations(pageNumber, locationName)).also {
-                it.logResult()
-            }
+            BaseResult.Success(catalogueApi.getLocations(pageNumber, locationName)).also { it.logResult() }
         } catch (ex: Exception) {
-            BaseResult.Error(ex).also {
-                it.logResult()
-            }
+            BaseResult.Error(ex).also { it.logResult() }
         }
     }
 
@@ -41,13 +33,9 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         episode: String
     ): BaseResult<EpisodeResultEntity> {
         return try {
-            BaseResult.Success(catalogueApi.getEpisodes(pageNumber, episodeName, episode)).also {
-                it.logResult()
-            }
+            BaseResult.Success(catalogueApi.getEpisodes(pageNumber, episodeName, episode)).also { it.logResult() }
         } catch (ex: Exception) {
-            BaseResult.Error(ex).also {
-                it.logResult()
-            }
+            BaseResult.Error(ex).also { it.logResult() }
         }
     }
 
