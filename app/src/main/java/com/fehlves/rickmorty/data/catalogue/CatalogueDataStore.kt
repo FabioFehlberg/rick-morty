@@ -10,10 +10,13 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         characterName: String
     ): BaseResult<CharacterResultEntity> {
         return try {
-            val result = catalogueApi.getCharacters(pageNumber, characterName)
-            BaseResult.Success(result)
+            BaseResult.Success(catalogueApi.getCharacters(pageNumber, characterName)).also {
+                it.logResult()
+            }
         } catch (ex: Exception) {
-            BaseResult.Error(ex)
+            BaseResult.Error(ex).also {
+                it.logResult()
+            }
         }
     }
 
@@ -22,10 +25,13 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         locationName: String
     ): BaseResult<LocationResultEntity> {
         return try {
-            val result = catalogueApi.getLocations(pageNumber, locationName)
-            BaseResult.Success(result)
+            BaseResult.Success(catalogueApi.getLocations(pageNumber, locationName)).also {
+                it.logResult()
+            }
         } catch (ex: Exception) {
-            BaseResult.Error(ex)
+            BaseResult.Error(ex).also {
+                it.logResult()
+            }
         }
     }
 
@@ -35,10 +41,13 @@ class CatalogueDataStore(private val catalogueApi: CatalogueApi) :
         episode: String
     ): BaseResult<EpisodeResultEntity> {
         return try {
-            val result = catalogueApi.getEpisodes(pageNumber, episodeName, episode)
-            BaseResult.Success(result)
+            BaseResult.Success(catalogueApi.getEpisodes(pageNumber, episodeName, episode)).also {
+                it.logResult()
+            }
         } catch (ex: Exception) {
-            BaseResult.Error(ex)
+            BaseResult.Error(ex).also {
+                it.logResult()
+            }
         }
     }
 
