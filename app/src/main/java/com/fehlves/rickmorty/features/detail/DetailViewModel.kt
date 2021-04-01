@@ -24,9 +24,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadCharacterList(ids: String) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getCharacterList(ids) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getCharacterList(ids) }) {
                 is BaseResult.Success -> onCharacterListResult.postValue(result.data)
                 is BaseResult.Error -> onCharacterListResult.postValue(null)
             }
@@ -35,9 +33,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadLocationsList(ids: String) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getLocationList(ids) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getLocationList(ids) }) {
                 is BaseResult.Success -> onLocationListResult.postValue(result.data)
                 is BaseResult.Error -> onLocationListResult.postValue(null)
             }
@@ -46,9 +42,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadEpisodesList(ids: String) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getEpisodeList(ids) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getEpisodeList(ids) }) {
                 is BaseResult.Success -> onEpisodeListResult.postValue(result.data)
                 is BaseResult.Error -> onEpisodeListResult.postValue(null)
             }
@@ -57,9 +51,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadCharacter(id: Int) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getCharacter(id) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getCharacter(id) }) {
                 is BaseResult.Success -> onCharacterListResult.postValue(listOf(result.data))
                 is BaseResult.Error -> onCharacterListResult.postValue(null)
             }
@@ -68,9 +60,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadLocation(id: Int) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getLocation(id) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getLocation(id) }) {
                 is BaseResult.Success -> onLocationListResult.postValue(listOf(result.data))
                 is BaseResult.Error -> onLocationListResult.postValue(null)
             }
@@ -79,9 +69,7 @@ class DetailViewModel(private val detailRepository: DetailRepository) : BaseView
 
     fun loadEpisode(id: Int) {
         launch {
-            val result = withContext(Dispatchers.IO) { detailRepository.getEpisode(id) }
-            result.logResult()
-            when (result) {
+            when (val result = withContext(Dispatchers.IO) { detailRepository.getEpisode(id) }) {
                 is BaseResult.Success -> onEpisodeListResult.postValue(listOf(result.data))
                 is BaseResult.Error -> onEpisodeListResult.postValue(null)
             }
