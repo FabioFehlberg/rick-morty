@@ -17,6 +17,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    kotlinOptions { jvmTarget = "1.8" }
     buildTypes {
         release {
             minifyEnabled false
@@ -66,7 +67,7 @@ dependencies {
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"
@@ -80,10 +81,11 @@ dependencies {
     // Lottie
     implementation 'com.airbnb.android:lottie:3.3.1'
 
-    // JUnit
+    // Tests
     testImplementation 'junit:junit:4.13'
+    testImplementation 'io.mockk:mockk:1.11.0'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-
-    // Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
