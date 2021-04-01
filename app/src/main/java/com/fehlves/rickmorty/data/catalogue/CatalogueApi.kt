@@ -10,8 +10,8 @@ interface CatalogueApi {
     suspend fun getCharacters(
         @Query("page") pageNumber: Int,
         @Query("name") name: String = "",
-        @Query("status") status: String = Constants.CharacterStatus.NON_SPECIFIED,
-        @Query("gender") gender: String = Constants.CharacterGender.NON_SPECIFIED
+        @Query("status") status: String = "",
+        @Query("gender") gender: String = ""
     ): CharacterResultEntity
 
     @GET("location")
