@@ -1,4 +1,4 @@
-package com.fehlves.rickmorty
+package com.fehlves.rickmorty.catalogue
 
 import com.fehlves.rickmorty.data.*
 import com.fehlves.rickmorty.data.catalogue.CharacterResultEntity

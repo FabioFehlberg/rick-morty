@@ -1,14 +1,15 @@
-package com.fehlves.rickmorty
+package com.fehlves.rickmorty.catalogue
 
 import androidx.lifecycle.Observer
-import com.fehlves.rickmorty.CatalogueMockProvider.mockCharacterName
-import com.fehlves.rickmorty.CatalogueMockProvider.mockCharacterResultAsCardView
-import com.fehlves.rickmorty.CatalogueMockProvider.mockCharacterResultEntity
-import com.fehlves.rickmorty.CatalogueMockProvider.mockEpisodeResultAsCardView
-import com.fehlves.rickmorty.CatalogueMockProvider.mockEpisodeResultEntity
-import com.fehlves.rickmorty.CatalogueMockProvider.mockLocationResultAsCardView
-import com.fehlves.rickmorty.CatalogueMockProvider.mockLocationResultEntity
-import com.fehlves.rickmorty.CatalogueMockProvider.mockPageNumber
+import com.fehlves.rickmorty.BaseUnitTest
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockCharacterName
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockCharacterResultAsCardView
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockCharacterResultEntity
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockEpisodeResultAsCardView
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockEpisodeResultEntity
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockLocationResultAsCardView
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockLocationResultEntity
+import com.fehlves.rickmorty.catalogue.CatalogueMockProvider.mockPageNumber
 import com.fehlves.rickmorty.common.BaseResult
 import com.fehlves.rickmorty.common.Constants
 import com.fehlves.rickmorty.data.catalogue.CatalogueRepository
