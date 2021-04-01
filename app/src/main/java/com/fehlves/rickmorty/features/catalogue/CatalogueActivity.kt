@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fehlves.rickmorty.R
@@ -16,6 +17,7 @@ import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
+import com.fehlves.rickmorty.extensions.observeNullable
 import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.features.detail.DetailInfoActivity
@@ -140,6 +142,10 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
         viewModel.onShowLoading().observeNotNull(this) { isToShow ->
             if (isToShow) showLoadingNewItems()
             else hideLoadingNewItems()
+        }
+
+        viewModel.onLoadMoreError().observeNullable(this) {
+            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
     }
 
