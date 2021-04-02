@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_padding_medium"
                     android:layout_marginBottom="@dimen/margin_padding_medium"
-                    android:textColorHint="@color/mediumGreen"
+                    android:textColorHint="@color/colorYellow"
                     app:layout_constraintEnd_toStartOf="@id/ivSearch"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
