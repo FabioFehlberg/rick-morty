@@ -49,6 +49,12 @@ class DetailAdapter : ListAdapter<BaseDetailInfoView, BaseViewHolder>(DIFF_CALLB
             with(binding as DetailInfoBinding) {
                 tvLabel.text = detailInfoView.label
                 pbInfoLoading.visibility = if (detailInfoView.isLoading) View.VISIBLE else View.GONE
+                ibRefresh.visibility = if (detailInfoView.showRefresh) View.VISIBLE else View.GONE
+                ibRefresh.setOnClickListener {
+                    pbInfoLoading.visibility = View.VISIBLE
+                    ibRefresh.visibility = View.GONE
+                    detailInfoView.refreshAction?.invoke()
+                }
             }
         }
     }
