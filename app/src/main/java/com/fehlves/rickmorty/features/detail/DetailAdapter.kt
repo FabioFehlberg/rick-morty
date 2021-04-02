@@ -53,6 +53,8 @@ class DetailAdapter : ListAdapter<BaseDetailInfoView, BaseViewHolder>(DIFF_CALLB
                 ibRefresh.setOnClickListener {
                     pbInfoLoading.visibility = View.VISIBLE
                     ibRefresh.visibility = View.GONE
+                    detailInfoView.isLoading = true
+                    detailInfoView.showRefresh = false
                     detailInfoView.refreshAction?.invoke()
                 }
             }
