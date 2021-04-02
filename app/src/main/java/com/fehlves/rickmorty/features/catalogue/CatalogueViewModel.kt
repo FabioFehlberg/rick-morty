@@ -9,6 +9,7 @@ import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
 import com.fehlves.rickmorty.data.catalogue.CatalogueRepository
+import com.fehlves.rickmorty.data.catalogue.InfoEntity
 import com.fehlves.rickmorty.data.toCharacterCardView
 import com.fehlves.rickmorty.data.toEpisodeCardView
 import com.fehlves.rickmorty.data.toLocationCardView
@@ -23,6 +24,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
 
     private val itemsEntity = arrayListOf<BaseEntity>()
     private var selectedType = Int.MIN_VALUE
+    private var infoEntity = InfoEntity(Int.MAX_VALUE, Int.MAX_VALUE, null, null)
 
     private val onShowLoading = MutableLiveData<Boolean>()
     private val onLoadMoreError = MutableLiveData<Unit?>()
@@ -49,6 +51,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
     }
 
     fun loadMoreItems(page: Int, searchInput: String) {
+        if (page > infoEntity.pages) return
         onShowLoading.postValue(true)
         when (selectedType) {
             CHARACTER_TYPE -> loadCharacters(page, searchInput)
@@ -65,6 +68,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
             }
             when (result) {
                 is BaseResult.Success -> {
+                    infoEntity = result.data.info
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onCharacterResult.postValue(items.map { it.toCharacterCardView() })
@@ -82,6 +86,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
             }
             when (result) {
                 is BaseResult.Success -> {
+                    infoEntity = result.data.info
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onLocationResult.postValue(items.map { it.toLocationCardView() })
@@ -99,6 +104,7 @@ class CatalogueViewModel(private val catalogueRepository: CatalogueRepository) :
             }
             when (result) {
                 is BaseResult.Success -> {
+                    infoEntity = result.data.info
                     val items = result.data.results
                     itemsEntity.addAll(items)
                     onEpisodeResult.postValue(items.map { it.toEpisodeCardView() })
