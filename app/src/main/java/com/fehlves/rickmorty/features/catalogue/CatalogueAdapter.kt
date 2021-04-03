@@ -11,12 +11,10 @@ import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.common.Constants.Companion.CHARACTER_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.EPISODE_TYPE
+import com.fehlves.rickmorty.common.Constants.Companion.ERROR_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOADING_TYPE
 import com.fehlves.rickmorty.common.Constants.Companion.LOCATION_TYPE
-import com.fehlves.rickmorty.databinding.ItemCharacterCardBinding
-import com.fehlves.rickmorty.databinding.ItemEpisodeCardBinding
-import com.fehlves.rickmorty.databinding.ItemLoadingCardBinding
-import com.fehlves.rickmorty.databinding.ItemLocationCardBinding
+import com.fehlves.rickmorty.databinding.*
 import com.fehlves.rickmorty.extensions.loadImageFromUrl
 import com.fehlves.rickmorty.features.catalogue.model.*
 
@@ -44,6 +42,10 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
                 val binding = ItemLoadingCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 LoadingViewHolder(binding)
             }
+            ERROR_TYPE -> {
+                val binding = ItemErrorCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ErrorViewHolder(binding)
+            }
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -54,6 +56,7 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
             is LocationCardView -> LOCATION_TYPE
             is EpisodeCardView -> EPISODE_TYPE
             is LoadingCardView -> LOADING_TYPE
+            is ErrorCardView -> ERROR_TYPE
             else -> throw IllegalArgumentException("Invalid type of data at position $position")
         }
     }
@@ -99,6 +102,14 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
     class LoadingViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             (binding as ItemLoadingCardBinding).laLoading.repeatCount = LottieDrawable.INFINITE
+        }
+    }
+
+    class ErrorViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+        override fun bind(item: BaseView) {
+            (binding as ItemErrorCardBinding).cvError.setOnClickListener {
+                (item as ErrorCardView).action.invoke()
+            }
         }
     }
 
