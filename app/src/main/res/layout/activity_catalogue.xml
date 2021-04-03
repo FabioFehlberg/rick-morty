@@ -13,6 +13,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/ivEmpty"
+        android:layout_width="200dp"
+        android:layout_height="240dp"
+        android:contentDescription="@string/catalogue_empty_state_image_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/img_empty_state" />
+
+    <TextView
+        android:id="@+id/tvEmptyStateDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_padding_xlarge"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        android:layout_marginEnd="@dimen/margin_padding_xlarge"
+        android:gravity="center"
+        android:text="@string/catalogue_empty_state_description"
+        android:textColor="@color/colorYellow"
+        android:textColorHighlight="@color/darkGreen"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivEmpty" />
+
+    <Button
+        android:id="@+id/btTryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        android:backgroundTint="@color/mediumGreen"
+        android:text="@string/catalogue_empty_state_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorYellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmptyStateDescription" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/gpEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="ivEmpty,tvEmptyStateDescription,btTryAgain"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCatalogue"
         android:layout_width="match_parent"
