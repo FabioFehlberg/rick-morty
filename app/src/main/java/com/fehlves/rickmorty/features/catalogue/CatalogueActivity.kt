@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fehlves.rickmorty.R
@@ -19,6 +18,7 @@ import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import com.fehlves.rickmorty.extensions.observeNullable
 import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
+import com.fehlves.rickmorty.features.catalogue.model.ErrorCardView
 import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.features.detail.DetailInfoActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,10 +39,13 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
 
     private var searchInput = ""
 
+    private var lastLoadedPage = Int.MAX_VALUE
+
     private val endlessScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 binding.rvCatalogue.removeOnScrollListener(this)
+                lastLoadedPage = page
                 loadItems(page)
             }
         }
@@ -87,7 +90,10 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
                 }
             }
         }
-        binding.rvCatalogue.requestFocus()
+        binding.btTryAgain.setOnClickListener {
+            loadItems(0)
+            setItemListVisible()
+        }
     }
 
     private fun hideSoftKeyboard(view: View) {
@@ -145,7 +151,8 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
         }
 
         viewModel.onLoadMoreError().observeNullable(this) {
-            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+            if (itemsList.filterNot { it is LoadingCardView }.isEmpty()) setEmptyState()
+            else showLastItemError()
         }
     }
 
@@ -167,10 +174,43 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
     }
 
     private fun hideLoadingNewItems() {
-        itemsList.filter { it.id == Int.MAX_VALUE }.forEach {
+        itemsList.filterIsInstance<LoadingCardView>().forEach {
             itemsList.remove(it)
         }
         binding.rvCatalogue.adapter?.notifyDataSetChanged()
+    }
+
+    private fun showLastItemError() {
+        itemsList += ErrorCardView {
+            loadItems(lastLoadedPage)
+            hideLastItemError()
+        }
+        binding.rvCatalogue.adapter?.notifyDataSetChanged()
+    }
+
+    private fun hideLastItemError() {
+        itemsList.filterIsInstance<ErrorCardView>().forEach {
+            itemsList.remove(it)
+        }
+        binding.rvCatalogue.adapter?.notifyDataSetChanged()
+    }
+
+    private fun setEmptyState() {
+        with(binding) {
+            appBarCatalogue.tiSearch.visibility = View.GONE
+            appBarCatalogue.ivSearch.visibility = View.GONE
+            gpEmptyState.visibility = View.VISIBLE
+            rvCatalogue.visibility = View.GONE
+        }
+    }
+
+    private fun setItemListVisible() {
+        with(binding) {
+            appBarCatalogue.tiSearch.visibility = View.VISIBLE
+            appBarCatalogue.ivSearch.visibility = View.VISIBLE
+            gpEmptyState.visibility = View.GONE
+            rvCatalogue.visibility = View.VISIBLE
+        }
     }
 
     companion object {
