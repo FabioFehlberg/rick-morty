@@ -18,6 +18,9 @@
     <string name="catalogue_character_search_hint">Search character</string>
     <string name="catalogue_location_search_hint">Search location</string>
     <string name="catalogue_episode_search_hint">Search episode</string>
+    <string name="catalogue_empty_state_image_description">A scene of the eighth episode of the third season, morty`s mind blowers. Morty is activating a red memory capsule.</string>
+    <string name="catalogue_empty_state_description">Looks like you have experienced an unpleasant error. Just try again and we remove this bad memory of yours.</string>
+    <string name="catalogue_empty_state_button">Try again</string>
 
     <string name="character_card_species">Species: %s</string>
     <string name="character_card_gender">Gender: %s</string>
