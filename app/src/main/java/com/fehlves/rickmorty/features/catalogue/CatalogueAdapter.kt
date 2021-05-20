@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.viewbinding.ViewBinding
 import com.airbnb.lottie.LottieDrawable
 import com.fehlves.rickmorty.R
 import com.fehlves.rickmorty.common.BaseView
@@ -61,10 +60,10 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class CharacterViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class CharacterViewHolder(private val binding: ItemCharacterCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val characterCardView = item as CharacterCardView
-            with(binding as ItemCharacterCardBinding) {
+            with(binding) {
                 tvName.text = characterCardView.name
                 tvGender.text = itemView.context.getString(R.string.character_card_gender, characterCardView.gender)
                 tvSpecies.text = itemView.context.getString(R.string.character_card_species, characterCardView.specie)
@@ -75,10 +74,10 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class LocationViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class LocationViewHolder(private val binding: ItemLocationCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val locationCardView = item as LocationCardView
-            with(binding as ItemLocationCardBinding) {
+            with(binding) {
                 tvLocationName.text = locationCardView.name
                 tvType.text = itemView.context.getString(R.string.location_card_type, locationCardView.type)
                 tvDimension.text = itemView.context.getString(R.string.location_card_dimension, locationCardView.dimension)
@@ -87,10 +86,10 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class EpisodeViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class EpisodeViewHolder(private val binding: ItemEpisodeCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val episodeCardView = item as EpisodeCardView
-            with(binding as ItemEpisodeCardBinding) {
+            with(binding) {
                 tvEpisodeName.text = episodeCardView.name
                 tvEpisode.text = episodeCardView.episode
                 tvAirDate.text = itemView.context.getString(R.string.episode_card_air_date, episodeCardView.airDate)
@@ -99,15 +98,15 @@ class CatalogueAdapter : ListAdapter<CatalogueView, BaseViewHolder>(DIFF_CALLBAC
         }
     }
 
-    class LoadingViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class LoadingViewHolder(private val binding: ItemLoadingCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
-            (binding as ItemLoadingCardBinding).laLoading.repeatCount = LottieDrawable.INFINITE
+            binding.laLoading.repeatCount = LottieDrawable.INFINITE
         }
     }
 
-    class ErrorViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class ErrorViewHolder(private val binding: ItemErrorCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
-            (binding as ItemErrorCardBinding).cvError.setOnClickListener {
+            binding.cvError.setOnClickListener {
                 (item as ErrorCardView).action.invoke()
             }
         }

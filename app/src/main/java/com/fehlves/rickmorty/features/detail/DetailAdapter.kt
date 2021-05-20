@@ -43,10 +43,10 @@ class DetailAdapter : ListAdapter<BaseDetailInfoView, BaseViewHolder>(DIFF_CALLB
         }
     }
 
-    inner class DetailInfoViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class DetailInfoViewHolder(private val binding: DetailInfoBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val detailInfoView = item as DetailInfoView
-            with(binding as DetailInfoBinding) {
+            with(binding) {
                 tvLabel.text = detailInfoView.label
                 pbInfoLoading.visibility = if (detailInfoView.isLoading) View.VISIBLE else View.GONE
                 ibRefresh.visibility = if (detailInfoView.showRefresh) View.VISIBLE else View.GONE
@@ -61,10 +61,10 @@ class DetailAdapter : ListAdapter<BaseDetailInfoView, BaseViewHolder>(DIFF_CALLB
         }
     }
 
-    inner class DetailInfoCardViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class DetailInfoCardViewHolder(private val binding: DetailInfoCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val detailInfoCardView = item as DetailInfoCardView
-            with(binding as DetailInfoCardBinding) {
+            with(binding) {
                 detailInfoCardView.iconUrl?.let { ivIcon.loadImageFromUrl(it) } ?: run { ivIcon.visibility = View.GONE }
                 tvLabel.text = detailInfoCardView.label
                 cvDetailInfoCard.setOnClickListener { detailInfoCardView.onClick?.invoke() }

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.viewbinding.ViewBinding
 import com.fehlves.rickmorty.common.BaseView
 import com.fehlves.rickmorty.common.BaseViewHolder
 import com.fehlves.rickmorty.databinding.ItemMainCardBinding
@@ -41,20 +40,20 @@ class MainAdapter : ListAdapter<BaseView, BaseViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-    class TitleViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class TitleViewHolder(private val binding: ItemMainTitleBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val titleView = item as TitleView
-            with(binding as ItemMainTitleBinding) {
+            with(binding) {
                 ivLogo.setImageDrawable(binding.root.context.getDrawableCompat(titleView.icon))
                 ivLogo.contentDescription = binding.root.context.getString(titleView.imageDescription)
             }
         }
     }
 
-    class CardViewHolder(binding: ViewBinding) : BaseViewHolder(binding) {
+    inner class CardViewHolder(private val binding: ItemMainCardBinding) : BaseViewHolder(binding) {
         override fun bind(item: BaseView) {
             val categoryView = item as CategoryView
-            with(binding as ItemMainCardBinding) {
+            with(binding) {
                 ivCategory.setImageDrawable(binding.root.context.getDrawableCompat(categoryView.icon))
                 ivCategory.contentDescription = binding.root.context.getString(categoryView.imageDescription)
                 tvCategory.text = binding.root.context.getString(categoryView.text)
