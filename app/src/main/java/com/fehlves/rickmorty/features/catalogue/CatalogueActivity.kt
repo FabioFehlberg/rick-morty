@@ -75,14 +75,14 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
             ivSearch.setOnClickListener {
                 searchInput = etSearch.text.toString()
                 resetList()
-                loadItems(0)
+                loadItems(PAGE_ZERO)
                 hideSoftKeyboard(etSearch)
             }
             etSearch.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     searchInput = etSearch.text.toString()
                     resetList()
-                    loadItems(0)
+                    loadItems(PAGE_ZERO)
                     hideSoftKeyboard(etSearch)
                     true
                 } else {
@@ -215,6 +215,7 @@ class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
 
     companion object {
         private const val ARG_SELECTED_TYPE = "arg_selected_type"
+        private const val PAGE_ZERO = 0
 
         fun newInstance(context: Context, selectedType: Int) =
             Intent(context, CatalogueActivity::class.java).apply {
