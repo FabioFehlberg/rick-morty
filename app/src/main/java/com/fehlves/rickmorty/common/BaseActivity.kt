@@ -1,7 +1,6 @@
 package com.fehlves.rickmorty.common
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -9,23 +8,13 @@ import androidx.viewbinding.ViewBinding
 import com.fehlves.rickmorty.R
 
 
-abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
-    private var _binding: T? = null
-    abstract val bindingInflater: (LayoutInflater) -> T
-
-    protected val binding: T
-        get() = requireNotNull(_binding)
+    protected abstract val binding: ViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = bindingInflater.invoke(layoutInflater)
-        setContentView(requireNotNull(_binding).root)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        setContentView(binding.root)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

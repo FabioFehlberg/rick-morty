@@ -3,7 +3,6 @@ package com.fehlves.rickmorty.features.catalogue
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -17,17 +16,16 @@ import com.fehlves.rickmorty.databinding.ActivityCatalogueBinding
 import com.fehlves.rickmorty.extensions.extra
 import com.fehlves.rickmorty.extensions.observeNotNull
 import com.fehlves.rickmorty.extensions.observeNullable
+import com.fehlves.rickmorty.extensions.viewBinding
 import com.fehlves.rickmorty.features.catalogue.model.CatalogueView
 import com.fehlves.rickmorty.features.catalogue.model.ErrorCardView
 import com.fehlves.rickmorty.features.catalogue.model.LoadingCardView
 import com.fehlves.rickmorty.features.detail.DetailInfoActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CatalogueActivity : BaseActivity<ActivityCatalogueBinding>() {
+class CatalogueActivity : BaseActivity() {
 
-    override val bindingInflater: (LayoutInflater) -> ActivityCatalogueBinding = {
-        ActivityCatalogueBinding.inflate(it)
-    }
+    override val binding by viewBinding { ActivityCatalogueBinding.inflate(layoutInflater) }
 
     private val selectedType by extra<Int>(ARG_SELECTED_TYPE)
 

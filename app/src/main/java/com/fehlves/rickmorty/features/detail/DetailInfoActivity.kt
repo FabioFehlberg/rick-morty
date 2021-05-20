@@ -3,7 +3,6 @@ package com.fehlves.rickmorty.features.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fehlves.rickmorty.R
@@ -13,20 +12,15 @@ import com.fehlves.rickmorty.data.CharacterEntity
 import com.fehlves.rickmorty.data.EpisodeEntity
 import com.fehlves.rickmorty.data.LocationEntity
 import com.fehlves.rickmorty.databinding.ActivityDetailInfoBinding
-import com.fehlves.rickmorty.extensions.extra
-import com.fehlves.rickmorty.extensions.formatDate
-import com.fehlves.rickmorty.extensions.loadImageFromUrl
-import com.fehlves.rickmorty.extensions.observeNullable
+import com.fehlves.rickmorty.extensions.*
 import com.fehlves.rickmorty.features.detail.model.BaseDetailInfoView
 import com.fehlves.rickmorty.features.detail.model.DetailInfoCardView
 import com.fehlves.rickmorty.features.detail.model.DetailInfoView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailInfoActivity : BaseActivity<ActivityDetailInfoBinding>() {
+class DetailInfoActivity : BaseActivity() {
 
-    override val bindingInflater: (LayoutInflater) -> ActivityDetailInfoBinding = {
-        ActivityDetailInfoBinding.inflate(it)
-    }
+    override val binding by viewBinding { ActivityDetailInfoBinding.inflate(layoutInflater) }
 
     private val viewModel: DetailViewModel by viewModel()
 
