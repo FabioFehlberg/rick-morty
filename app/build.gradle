@@ -68,9 +68,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 
     // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-androidx-viewmodel:$koin_version"
+    implementation "io.insert-koin:koin-androidx-scope:$koin_version"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
