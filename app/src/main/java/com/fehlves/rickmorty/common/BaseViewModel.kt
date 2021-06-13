@@ -14,7 +14,6 @@ abstract class BaseViewModel: ViewModel(), CoroutineScope {
 
     override fun onCleared() {
         super.onCleared()
-
         job.cancel()
     }
 }
