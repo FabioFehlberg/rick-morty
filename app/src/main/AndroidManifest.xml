@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.fehlves.rickmorty.features.main.MainActivity">
+        <activity
+            android:name="com.fehlves.rickmorty.features.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
